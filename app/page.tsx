@@ -2,6 +2,7 @@ import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Home, Activity, User
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Drive() {
   return (
@@ -120,16 +121,18 @@ export default function Drive() {
                 Start creating
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">L</span>
+                <Link href="/logo">
+                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">L</span>
+                        </div>
+                        <span className="text-gray-700 font-medium">Logo Project</span>
                       </div>
-                      <span className="text-gray-700 font-medium">Create a logo</span>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
                 <Card className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
