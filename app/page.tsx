@@ -1,313 +1,168 @@
-import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database } from "lucide-react";
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-export default function Drive() {
+export default function SignIn() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleSignIn = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple validation - in a real app you'd validate against a backend
+    if (email && password) {
+      router.push("/dashboard");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="flex items-center justify-between px-4 py-2 bg-white border-b">
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <div className="w-5 h-5 bg-yellow-400 rounded-full"></div>
-            </div>
-            <span className="text-xl text-gray-700 font-medium">Vaia</span>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* Logo and Brand */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-10 h-10 bg-yellow-400 rounded-full"></div>
           </div>
+          <h1 className="text-3xl font-bold text-gray-900">Vaia</h1>
+          <p className="text-gray-600 mt-2">Create amazing logos, posters, and mockups</p>
         </div>
 
-        <div className="flex-1 max-w-2xl mx-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input
-              type="text"
-              placeholder="Search in Vaia"
-              className="w-full pl-10 pr-4 py-2 bg-gray-100 border-none focus:bg-white focus:shadow-md transition-all"
-            />
-          </div>
-        </div>
+        {/* Sign In Form */}
+        <Card className="shadow-lg">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-semibold text-center">Sign in to your account</CardTitle>
+            <p className="text-sm text-gray-600 text-center">
+              Enter your email and password to access your workspace
+            </p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSignIn} className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full"
+                />
+              </div>
 
-        <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="icon">
-            <HelpCircle className="w-5 h-5" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Settings className="w-5 h-5" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Grid3X3 className="w-5 h-5" />
-          </Button>
-          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-            <User className="w-5 h-5 text-white" />
-          </div>
-        </div>
-      </header>
+              <div className="space-y-2">
+                <label htmlFor="password" className="text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="w-full pr-10"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-gray-400" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-gray-400" />
+                    )}
+                  </Button>
+                </div>
+              </div>
 
-      <div className="flex">
-        <aside className="w-64 bg-white h-screen sticky top-0 border-r">
-          <div className="p-4">
-            <Button className="flex items-center space-x-3 w-full justify-start rounded-2xl shadow-sm" variant="outline">
-              <Plus className="w-6 h-6" />
-              <span className="font-medium">New</span>
-            </Button>
-          </div>
+              <div className="flex items-center justify-between">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-600">Remember me</span>
+                </label>
+                <a href="#" className="text-sm text-blue-600 hover:underline">
+                  Forgot password?
+                </a>
+              </div>
 
-          <nav className="px-2">
-            <div className="space-y-1">
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-blue-600 bg-blue-50 rounded-r-full hover:bg-blue-50">
-                <Home className="w-5 h-5" />
-                <span className="font-medium">Home</span>
+              <Button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                Sign In
               </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Activity className="w-5 h-5" />
-                <span>Activity</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Users className="w-5 h-5" />
-                <span>Workspaces</span>
-              </Button>
-            </div>
-
-            <div className="mt-6 space-y-1">
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Folder className="w-5 h-5" />
-                <span>My Vaia</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Share className="w-5 h-5" />
-                <span>Shared drives</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Users className="w-5 h-5" />
-                <span>Shared with me</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Clock className="w-5 h-5" />
-                <span>Recent</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Star className="w-5 h-5" />
-                <span>Starred</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Trash className="w-5 h-5" />
-                <span>Trash</span>
-              </Button>
-            </div>
+            </form>
 
             <div className="mt-6">
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Database className="w-5 h-5" />
-                <span>Storage</span>
-              </Button>
-              <div className="px-3 text-xs text-gray-500 mt-1">15 GB of 15 GB used</div>
-            </div>
-          </nav>
-        </aside>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                </div>
+              </div>
 
-        <main className="flex-1 p-6">
-          <div className="max-w-6xl">
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-normal text-gray-900">Welcome to Vaia</h1>
-              <div className="w-6 h-6 text-gray-400">
-                <HelpCircle className="w-6 h-6" />
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <Button variant="outline" className="w-full">
+                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                    <path
+                      fill="currentColor"
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    />
+                  </svg>
+                  Google
+                </Button>
+                <Button variant="outline" className="w-full">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  Facebook
+                </Button>
               </div>
             </div>
 
-            <div className="mb-8">
-              <h2 className="text-lg font-medium text-blue-600 mb-4 flex items-center">
-                <span className="mr-2">✨</span>
-                Start creating
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Link href="/logo">
-                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <CardContent className="p-4">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">L</span>
-                        </div>
-                        <span className="text-gray-700 font-medium">Logo Project</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-purple-500 rounded flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">P</span>
-                      </div>
-                      <span className="text-gray-700 font-medium">Design a poster</span>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">M</span>
-                      </div>
-                      <span className="text-gray-700 font-medium">Physical mockups</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="mt-4">
-                <Card className="hover:shadow-md transition-shadow cursor-pointer inline-block">
-                  <CardContent className="p-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">C</span>
-                      </div>
-                      <span className="text-gray-700 font-medium">Generate company names</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+            <p className="mt-6 text-center text-sm text-gray-600">
+              Don&apos;t have an account?{" "}
+              <a href="#" className="text-blue-600 hover:underline font-medium">
+                Sign up
+              </a>
+            </p>
+          </CardContent>
+        </Card>
 
-            <div className="mb-8">
-              <h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                <span className="mr-2">📁</span>
-                Suggested folders
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6 text-blue-500" />
-                        <div>
-                          <div className="font-medium text-gray-900">Brand Assets</div>
-                          <div className="text-sm text-gray-500">In My Vaia</div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                        <span>⋮</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6 text-blue-500" />
-                        <div>
-                          <div className="font-medium text-gray-900">Marketing Materials</div>
-                          <div className="text-sm text-gray-500">In Shared with me</div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                        <span>⋮</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6 text-blue-500" />
-                        <div>
-                          <div className="font-medium text-gray-900">Product Mockups</div>
-                          <div className="text-sm text-gray-500">In My Vaia</div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                        <span>⋮</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                <span className="mr-2">📄</span>
-                Suggested files
-              </h2>
-              <Card>
-                <CardContent className="p-0">
-                  <div className="p-4 border-b border-gray-200">
-                    <div className="flex justify-between items-center">
-                      <div className="flex space-x-4 text-sm text-gray-500">
-                        <span>Name</span>
-                        <span>Reason suggested</span>
-                        <span>Owner</span>
-                        <span>Location</span>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button variant="ghost" size="icon">
-                          <Grid3X3 className="w-4 h-4 text-gray-500" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="divide-y divide-gray-200">
-                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">L</span>
-                          </div>
-                          <span className="font-medium text-gray-900">Company Logo Draft</span>
-                        </div>
-                        <div className="flex space-x-16 text-sm text-gray-500">
-                          <span>You edited • Yesterday</span>
-                          <span>me</span>
-                          <span>My Vaia</span>
-                        </div>
-                        <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                          <span>⋮</span>
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-purple-500 rounded flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">P</span>
-                          </div>
-                          <span className="font-medium text-gray-900">Product Launch Poster</span>
-                        </div>
-                        <div className="flex space-x-16 text-sm text-gray-500">
-                          <span>You opened • 2 days ago</span>
-                          <span>me</span>
-                          <span>My Vaia</span>
-                        </div>
-                        <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                          <span>⋮</span>
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">M</span>
-                          </div>
-                          <span className="font-medium text-gray-900">T-Shirt Mockup Collection</span>
-                        </div>
-                        <div className="flex space-x-16 text-sm text-gray-500">
-                          <span>You edited • 3 days ago</span>
-                          <span>me</span>
-                          <span>Shared with me</span>
-                        </div>
-                        <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                          <span>⋮</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </main>
+        {/* Footer */}
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>© 2024 Vaia. All rights reserved.</p>
+        </div>
       </div>
     </div>
   );
