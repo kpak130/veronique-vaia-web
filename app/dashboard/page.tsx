@@ -109,17 +109,18 @@ export default function Drive() {
       </header>
 
       <div className="flex pt-14">
-        <aside className="w-64 bg-white h-screen fixed top-14 left-0 border-r">
-          <div className="p-4">
+        <aside className="w-64 bg-white fixed top-14 left-0 border-r flex flex-col h-[calc(100vh-3.5rem)]">
+          <div className="p-4 flex-shrink-0">
             <Button className="flex items-center space-x-3 w-full justify-start rounded-2xl shadow-sm" variant="outline">
               <Plus className="w-6 h-6" />
               <span className="font-medium">Create New</span>
             </Button>
           </div>
 
-          <nav className="px-2">
-            {/* Core Navigation */}
-            <div className="space-y-1">
+          <nav className="px-2 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <div className="pb-6">
+              {/* Core Navigation */}
+              <div className="space-y-1">
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 rounded-r-full" style={{ color: BRAND_COLORS.blue, backgroundColor: `${BRAND_COLORS.blue}15` }}>
                 <Home className="w-5 h-5" />
                 <span className="font-medium">Home</span>
@@ -198,6 +199,7 @@ export default function Drive() {
                 <span>Storage</span>
               </Button>
               <div className="px-3 text-xs text-gray-500 mt-1">15 GB of 15 GB used</div>
+            </div>
             </div>
           </nav>
         </aside>
