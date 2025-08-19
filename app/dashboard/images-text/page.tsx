@@ -11,16 +11,75 @@ import { BRAND_COLORS } from "@/lib/theme";
 export default function ImagesTextProject() {
   const [activeTab, setActiveTab] = useState<'images' | 'text'>('images');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [showContent, setShowContent] = useState(false);
+  const [generatedImages, setGeneratedImages] = useState<any[]>([]);
+  const [generatedTexts, setGeneratedTexts] = useState<any[]>([]);
+  const [showingImageIndex, setShowingImageIndex] = useState(0);
+  const [showingTextIndex, setShowingTextIndex] = useState(0);
+  const [showLoadingCards, setShowLoadingCards] = useState(false);
+
+  const newImages = [
+    { url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", title: "Business Meeting", size: "1200x800px" },
+    { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop", title: "Team Collaboration", size: "1080x1080px" },
+    { url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop", title: "Office Space", size: "800x600px" },
+    { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=800&fit=crop", title: "Data Analytics", size: "1200x800px" },
+    { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=800&fit=crop", title: "Creative Workshop", size: "1080x1080px" },
+    { url: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop", title: "Remote Work", size: "800x600px" },
+    { url: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=800&fit=crop", title: "Strategy Session", size: "1200x800px" },
+    { url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=800&fit=crop", title: "Team Success", size: "1080x1080px" },
+    { url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=600&fit=crop", title: "Modern Workspace", size: "800x600px" },
+    { url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=800&fit=crop", title: "Team Brainstorming", size: "1200x800px" }
+  ];
+
+  const newTexts = [
+    { type: 'Marketing Copy', category: 'Promotional content', title: 'Transform Your Business Today!', content: 'Discover innovative solutions that drive growth and success. Our cutting-edge approach combines industry expertise with modern technology to deliver exceptional results for your business.', words: 42 },
+    { type: 'Blog Post Excerpt', category: 'Blog content', title: 'The Future of Digital Innovation', content: 'In today\'s rapidly evolving digital landscape, staying ahead means embracing change and leveraging technology to create meaningful connections with your audience. Here\'s how to get started...', words: 38 },
+    { type: 'Product Description', category: 'Product content', title: 'Premium Quality Product', content: 'Crafted with precision and attention to detail, this product offers unmatched quality and performance. Perfect for professionals who demand excellence in every aspect of their work.', words: 36 },
+    { type: 'Marketing Copy', category: 'Promotional content', title: 'Elevate Your Brand Experience', content: 'Create lasting impressions with our comprehensive branding solutions. From visual identity to strategic messaging, we help businesses stand out in competitive markets.', words: 35 },
+    { type: 'Blog Post Excerpt', category: 'Blog content', title: 'Mastering Digital Transformation', content: 'Digital transformation isn\'t just about technology—it\'s about reimagining how your business operates and delivers value to customers in an increasingly connected world.', words: 41 },
+    { type: 'Product Description', category: 'Product content', title: 'Next-Generation Solution', content: 'Experience the future of productivity with our innovative platform. Designed for modern teams, it seamlessly integrates with your existing workflow while boosting efficiency.', words: 39 },
+    { type: 'Marketing Copy', category: 'Promotional content', title: 'Unlock Your Potential', content: 'Take your skills to the next level with our comprehensive training programs. Learn from industry experts and gain practical knowledge that drives real results.', words: 33 },
+    { type: 'Blog Post Excerpt', category: 'Blog content', title: 'Building Resilient Teams', content: 'Strong teams are built on trust, communication, and shared goals. Discover proven strategies for creating collaborative environments that thrive under pressure.', words: 37 },
+    { type: 'Product Description', category: 'Product content', title: 'Professional Grade Tools', content: 'Built for professionals who demand reliability and performance. Our tools undergo rigorous testing to ensure they meet the highest standards of quality and durability.', words: 40 },
+    { type: 'Marketing Copy', category: 'Promotional content', title: 'Start Your Journey Today', content: 'Every great achievement begins with a single step. Join thousands of satisfied customers who have transformed their businesses with our proven solutions.', words: 34 }
+  ];
 
   const handleGenerateContent = () => {
     setIsGenerating(true);
-    setShowContent(false);
+    setShowLoadingCards(true);
+    setShowingImageIndex(0);
+    setShowingTextIndex(0);
     
-    // After 10 seconds, show the content
+    // Initialize empty arrays for the new generation
+    setGeneratedImages(new Array(10).fill(null));
+    setGeneratedTexts(new Array(10).fill(null));
+    
+    // After 10 seconds, start showing images/texts one by one
     setTimeout(() => {
       setIsGenerating(false);
-      setShowContent(true);
+      
+      // Show images one by one with 1 second intervals
+      newImages.forEach((image, index) => {
+        setTimeout(() => {
+          setGeneratedImages(prev => {
+            const newArray = [...prev];
+            newArray[index] = image;
+            return newArray;
+          });
+          setShowingImageIndex(index + 1);
+        }, index * 1000);
+      });
+
+      // Show texts one by one with 1 second intervals
+      newTexts.forEach((text, index) => {
+        setTimeout(() => {
+          setGeneratedTexts(prev => {
+            const newArray = [...prev];
+            newArray[index] = text;
+            return newArray;
+          });
+          setShowingTextIndex(index + 1);
+        }, index * 1000);
+      });
     }, 10000);
   };
 
@@ -180,43 +239,75 @@ export default function ImagesTextProject() {
           {/* Images Tab Content */}
           {activeTab === 'images' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Loading cards */}
-              {isGenerating && (
-                <>
-                  {Array.from({ length: 10 }, (_, i) => (
-                    <Card key={`loading-${i}`} className="animate-pulse">
-                      <CardContent className="p-4">
-                        <div className="aspect-square rounded-lg mb-3 bg-gray-100 flex items-center justify-center">
-                          <Loader2 className="w-8 h-8 animate-spin" style={{ color: BRAND_COLORS.blue }} />
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="h-4 bg-gray-200 rounded w-24 mb-1"></div>
-                            <div className="h-3 bg-gray-100 rounded w-16"></div>
+              {/* Loading/Generated cards */}
+              {showLoadingCards && Array.from({ length: 10 }, (_, i) => {
+                const image = generatedImages[i];
+                const isLoaded = !!image;
+                
+                return (
+                  <Card key={`image-${i}`} className={!isLoaded ? "animate-pulse" : "group hover:shadow-lg transition-all duration-200 cursor-pointer"}>
+                    <CardContent className="p-4">
+                      <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
+                        {isLoaded ? (
+                          <>
+                            <img 
+                              src={image.url}
+                              alt={image.title}
+                              className="w-full h-full object-cover"
+                            />
+                            {/* Hover overlay */}
+                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                              <div className="flex space-x-2">
+                                <Button size="sm" variant="secondary" className="text-xs">
+                                  <Download className="w-3 h-3 mr-1" />
+                                  Download
+                                </Button>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="flex items-center justify-center h-full">
+                            <Loader2 className="w-8 h-8 animate-spin" style={{ color: BRAND_COLORS.blue }} />
                           </div>
-                          <div className="flex space-x-1">
-                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
-                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </>
-              )}
+                        )}
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        {isLoaded ? (
+                          <>
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">{image.title}</p>
+                              <p className="text-xs text-gray-500">{image.size}</p>
+                            </div>
+                            <div className="flex space-x-1">
+                              <Button variant="ghost" size="icon" className="w-6 h-6">
+                                <Heart className="w-3 h-3" />
+                              </Button>
+                              <Button variant="ghost" size="icon" className="w-6 h-6">
+                                <Share className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div>
+                              <div className="h-4 bg-gray-200 rounded w-24 mb-1"></div>
+                              <div className="h-3 bg-gray-100 rounded w-16"></div>
+                            </div>
+                            <div className="flex space-x-1">
+                              <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                              <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
               
-              {/* Actual content */}
-              {showContent && ([
-                { url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", title: "Business Meeting", size: "1200x800px" },
-                { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop", title: "Team Collaboration", size: "1080x1080px" },
-                { url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop", title: "Office Space", size: "800x600px" },
-                { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=800&fit=crop", title: "Data Analytics", size: "1200x800px" },
-                { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=800&fit=crop", title: "Creative Workshop", size: "1080x1080px" },
-                { url: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop", title: "Remote Work", size: "800x600px" },
-                { url: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=800&fit=crop", title: "Strategy Session", size: "1200x800px" },
-                { url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=800&fit=crop", title: "Team Success", size: "1080x1080px" },
-                { url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=600&fit=crop", title: "Modern Workspace", size: "800x600px" }
-              ]).map((image, i) => (
+              {/* Existing generated content (from previous generations) */}
+              {!showLoadingCards && generatedImages.map((image, i) => (
                 <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                   <CardContent className="p-4">
                     <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
@@ -260,41 +351,98 @@ export default function ImagesTextProject() {
           {/* Text Tab Content */}
           {activeTab === 'text' && (
             <div className="space-y-4">
-              {/* Loading cards for text */}
-              {isGenerating && (
-                <>
-                  {Array.from({ length: 10 }, (_, i) => (
-                    <Card key={`loading-text-${i}`} className="animate-pulse">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-gray-200 rounded-lg"></div>
-                            <div>
-                              <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
-                              <div className="h-3 bg-gray-100 rounded w-24"></div>
-                            </div>
+              {/* Loading/Generated cards for text */}
+              {showLoadingCards && Array.from({ length: 10 }, (_, i) => {
+                const text = generatedTexts[i];
+                const isLoaded = !!text;
+                
+                return (
+                  <Card key={`text-${i}`} className={!isLoaded ? "animate-pulse" : "group hover:shadow-lg transition-all duration-200 cursor-pointer"}>
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: isLoaded ? `${BRAND_COLORS.blue}20` : '#E5E7EB' }}>
+                            {isLoaded ? (
+                              <FileText className="w-4 h-4" style={{ color: BRAND_COLORS.blue }} />
+                            ) : (
+                              <div className="w-4 h-4 bg-gray-300 rounded"></div>
+                            )}
                           </div>
-                          <div className="flex space-x-1">
-                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
-                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                          <div>
+                            {isLoaded ? (
+                              <>
+                                <h3 className="font-semibold text-gray-900">{text.type}</h3>
+                                <p className="text-sm text-gray-500">{text.category}</p>
+                              </>
+                            ) : (
+                              <>
+                                <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+                                <div className="h-3 bg-gray-100 rounded w-24"></div>
+                              </>
+                            )}
                           </div>
                         </div>
+                        <div className="flex space-x-1">
+                          {isLoaded ? (
+                            <>
+                              <Button variant="ghost" size="icon" className="w-6 h-6">
+                                <Heart className="w-3 h-3" />
+                              </Button>
+                              <Button variant="ghost" size="icon" className="w-6 h-6">
+                                <Share className="w-3 h-3" />
+                              </Button>
+                            </>
+                          ) : (
+                            <>
+                              <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                              <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {isLoaded ? (
+                        <div className="prose prose-sm max-w-none text-gray-700 mb-4">
+                          <p className="mb-3">
+                            {text.type === 'Marketing Copy' ? '🚀' : text.type === 'Blog Post Excerpt' ? '📝' : '⭐'} <strong>{text.title}</strong>
+                          </p>
+                          <p className="text-sm leading-relaxed">
+                            {text.content}
+                          </p>
+                        </div>
+                      ) : (
                         <div className="space-y-2 mb-4">
                           <div className="h-4 bg-gray-100 rounded w-full"></div>
                           <div className="h-4 bg-gray-100 rounded w-5/6"></div>
                           <div className="h-4 bg-gray-100 rounded w-4/6"></div>
+                          <div className="flex items-center justify-center mt-4">
+                            <Loader2 className="w-6 h-6 animate-spin" style={{ color: BRAND_COLORS.blue }} />
+                          </div>
                         </div>
-                        <div className="flex items-center justify-center">
-                          <Loader2 className="w-6 h-6 animate-spin" style={{ color: BRAND_COLORS.blue }} />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </>
-              )}
+                      )}
+                      
+                      <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                        {isLoaded ? (
+                          <>
+                            <span className="text-sm text-gray-500">{text.words} words</span>
+                            <Button size="sm" variant="outline" className="text-xs">
+                              Copy Text
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <div className="h-3 bg-gray-100 rounded w-16"></div>
+                            <div className="h-6 bg-gray-100 rounded w-20"></div>
+                          </>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
               
-              {/* Actual text content */}
-              {showContent && Array.from({ length: 6 }).map((_, i) => (
+              {/* Existing generated text content (from previous generations) */}
+              {!showLoadingCards && generatedTexts.map((text, i) => (
                 <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
@@ -304,10 +452,10 @@ export default function ImagesTextProject() {
                         </div>
                         <div>
                           <h3 className="font-semibold text-gray-900">
-                            {i % 3 === 0 ? 'Marketing Copy' : i % 3 === 1 ? 'Blog Post Excerpt' : 'Product Description'}
+                            {text.type}
                           </h3>
                           <p className="text-sm text-gray-500">
-                            {i % 3 === 0 ? 'Promotional content' : i % 3 === 1 ? 'Blog content' : 'Product content'}
+                            {text.category}
                           </p>
                         </div>
                       </div>
@@ -322,38 +470,17 @@ export default function ImagesTextProject() {
                     </div>
                     
                     <div className="prose prose-sm max-w-none text-gray-700 mb-4">
-                      {i % 3 === 0 && (
-                        <>
-                          <p className="mb-3">🚀 <strong>Transform Your Business Today!</strong></p>
-                          <p className="text-sm leading-relaxed">
-                            Discover innovative solutions that drive growth and success. Our cutting-edge approach 
-                            combines industry expertise with modern technology to deliver exceptional results for your business.
-                          </p>
-                        </>
-                      )}
-                      {i % 3 === 1 && (
-                        <>
-                          <p className="mb-3">📝 <strong>The Future of Digital Innovation</strong></p>
-                          <p className="text-sm leading-relaxed">
-                            In today&apos;s rapidly evolving digital landscape, staying ahead means embracing change and 
-                            leveraging technology to create meaningful connections with your audience. Here&apos;s how to get started...
-                          </p>
-                        </>
-                      )}
-                      {i % 3 === 2 && (
-                        <>
-                          <p className="mb-3">⭐ <strong>Premium Quality Product</strong></p>
-                          <p className="text-sm leading-relaxed">
-                            Crafted with precision and attention to detail, this product offers unmatched quality and performance. 
-                            Perfect for professionals who demand excellence in every aspect of their work.
-                          </p>
-                        </>
-                      )}
+                      <p className="mb-3">
+                        {text.type === 'Marketing Copy' ? '🚀' : text.type === 'Blog Post Excerpt' ? '📝' : '⭐'} <strong>{text.title}</strong>
+                      </p>
+                      <p className="text-sm leading-relaxed">
+                        {text.content}
+                      </p>
                     </div>
                     
                     <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                       <span className="text-sm text-gray-500">
-                        {i % 3 === 0 ? '42 words' : i % 3 === 1 ? '38 words' : '36 words'}
+                        {text.words} words
                       </span>
                       <Button size="sm" variant="outline" className="text-xs">
                         Copy Text
