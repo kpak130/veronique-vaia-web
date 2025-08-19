@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database, Globe, History, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { BRAND_COLORS } from "@/lib/theme";
 
 export default function Drive() {
-  const [activeProjectTab, setActiveProjectTab] = useState<'public' | 'team' | 'private'>('private');
+  const [activeProjectTab, setActiveProjectTab] = useState<'recents' | 'public' | 'team' | 'private'>('recents');
 
   const privateProjects = [
     { category: 'Logos', name: 'Tech Startup Logo Design', activity: 'You edited • Yesterday', owner: 'me', shared: 'My Vaia' },
@@ -38,12 +38,24 @@ export default function Drive() {
     { category: 'Mockups', name: 'Nonprofit Event Materials', activity: 'Volunteers created • 3 weeks ago', owner: 'Nonprofit Org', shared: 'Public Gallery' },
   ];
 
+  const recentProjects = [
+    { category: 'Logos', name: 'Tech Startup Logo Design', activity: 'You edited • Yesterday', owner: 'me', shared: 'My Vaia' },
+    { category: 'Posters', name: 'Product Launch Event', activity: 'Team edited • 5 days ago', owner: 'Design Team', shared: 'Team Workspace' },
+    { category: 'Logos', name: 'Coffee Shop Branding', activity: 'You opened • 2 days ago', owner: 'me', shared: 'My Vaia' },
+    { category: 'Marketing', name: 'Social Media Campaign Assets', activity: 'You created • 1 week ago', owner: 'me', shared: 'My Vaia' },
+    { category: 'Logos', name: 'Open Source Project Logo', activity: 'Community edited • 2 days ago', owner: 'Community', shared: 'Public Gallery' },
+    { category: 'Posters', name: 'Art Exhibition Announcement', activity: 'Sarah edited • 1 week ago', owner: 'Marketing Team', shared: 'Team Workspace' },
+    { category: 'Marketing', name: 'Email Newsletter Content', activity: 'John edited • 2 weeks ago', owner: 'Content Team', shared: 'Team Workspace' },
+    { category: 'Mockups', name: 'T-Shirt Mockup Collection', activity: 'You edited • 3 weeks ago', owner: 'me', shared: 'My Vaia' },
+  ];
+
   const getCurrentProjects = () => {
     switch (activeProjectTab) {
+      case 'recents': return recentProjects;
       case 'public': return publicProjects;
       case 'team': return teamProjects;
       case 'private': return privateProjects;
-      default: return privateProjects;
+      default: return recentProjects;
     }
   };
 
@@ -242,34 +254,48 @@ export default function Drive() {
               <div className="mb-4">
                 <div className="flex space-x-1 bg-gray-100 rounded-lg p-1 w-fit">
                   <button
+                    onClick={() => setActiveProjectTab('recents')}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all flex items-center space-x-2`}
+                    style={{
+                      backgroundColor: activeProjectTab === 'recents' ? 'white' : 'transparent',
+                      color: activeProjectTab === 'recents' ? BRAND_COLORS.darkBlue : '#6B7280'
+                    }}
+                  >
+                    <History className="w-4 h-4" />
+                    <span>Recents</span>
+                  </button>
+                  <button
                     onClick={() => setActiveProjectTab('public')}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all flex items-center space-x-2`}
                     style={{
                       backgroundColor: activeProjectTab === 'public' ? 'white' : 'transparent',
                       color: activeProjectTab === 'public' ? BRAND_COLORS.darkBlue : '#6B7280'
                     }}
                   >
-                    Public
+                    <Globe className="w-4 h-4" />
+                    <span>Public</span>
                   </button>
                   <button
                     onClick={() => setActiveProjectTab('team')}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all flex items-center space-x-2`}
                     style={{
                       backgroundColor: activeProjectTab === 'team' ? 'white' : 'transparent',
                       color: activeProjectTab === 'team' ? BRAND_COLORS.darkBlue : '#6B7280'
                     }}
                   >
-                    Team
+                    <Users className="w-4 h-4" />
+                    <span>Team</span>
                   </button>
                   <button
                     onClick={() => setActiveProjectTab('private')}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all flex items-center space-x-2`}
                     style={{
                       backgroundColor: activeProjectTab === 'private' ? 'white' : 'transparent',
                       color: activeProjectTab === 'private' ? BRAND_COLORS.darkBlue : '#6B7280'
                     }}
                   >
-                    Private
+                    <Lock className="w-4 h-4" />
+                    <span>Private</span>
                   </button>
                 </div>
               </div>
