@@ -111,9 +111,12 @@ export default function Drive() {
       <div className="flex pt-14">
         <aside className="w-64 bg-white fixed top-14 left-0 border-r flex flex-col h-[calc(100vh-3.5rem)]">
           <div className="p-4 flex-shrink-0">
-            <Button className="flex items-center space-x-3 w-full justify-start rounded-2xl shadow-sm" variant="outline">
-              <Plus className="w-6 h-6" />
-              <span className="font-medium">Create New</span>
+            <Button 
+              className="flex items-center space-x-3 w-full justify-center rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-semibold text-white border-0 h-12" 
+              style={{ backgroundColor: BRAND_COLORS.blue }}
+            >
+              <Sparkles className="w-5 h-5" />
+              <span>Create New</span>
             </Button>
           </div>
 
