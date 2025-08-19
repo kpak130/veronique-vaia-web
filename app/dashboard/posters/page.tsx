@@ -10,7 +10,7 @@ import { BRAND_COLORS } from "@/lib/theme";
 export default function PostersProject() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
-      <header className="flex items-center justify-between px-4 py-2 bg-white border-b">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2 bg-white border-b">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <Link href="/dashboard" className="flex items-center space-x-2">
@@ -50,7 +50,7 @@ export default function PostersProject() {
         </div>
       </header>
 
-      <div className="flex h-screen">
+      <div className="flex h-screen pt-14">
         {/* Left Panel - Input Controls */}
         <aside className="w-80 bg-white border-r p-6 overflow-y-auto">
           <div className="space-y-6">
