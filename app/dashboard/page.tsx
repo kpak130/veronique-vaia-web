@@ -152,20 +152,12 @@ export default function Drive() {
                 Resources
               </div>
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Grid3X3 className="w-5 h-5" />
-                <span>Templates</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
                 <Image className="w-5 h-5" />
                 <span>Assets</span>
               </Button>
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Palette className="w-5 h-5" />
-                <span>Brand Kits</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Lightbulb className="w-5 h-5" />
-                <span>Inspiration</span>
+                <Search className="w-5 h-5" />
+                <span>Keywords</span>
               </Button>
             </div>
 
