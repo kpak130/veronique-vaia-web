@@ -173,10 +173,12 @@ export default function KeywordsPage() {
                 <div className="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
                   Resources
                 </div>
-                <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                  <Image className="w-5 h-5" />
-                  <span>Assets</span>
-                </Button>
+                <Link href="/dashboard/assets" className="block">
+                  <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                    <Image className="w-5 h-5" />
+                    <span>Assets</span>
+                  </Button>
+                </Link>
                 <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 rounded-r-full" style={{ color: BRAND_COLORS.blue, backgroundColor: `${BRAND_COLORS.blue}15` }}>
                   <Search className="w-5 h-5" />
                   <span className="font-medium">Keywords</span>
@@ -275,15 +277,15 @@ export default function KeywordsPage() {
           </Card>
 
           {/* Keyword Sets List - One per row */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             {filteredKeywordSets.map((keywordSet) => {
               return (
                 <Card key={keywordSet.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                  <CardContent className="p-6">
+                  <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       {/* Left side - Main info */}
                       <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-2">
+                        <div className="flex items-center space-x-3 mb-4">
                           <h3 className="text-base font-medium text-gray-900">{keywordSet.name}</h3>
                         </div>
                         

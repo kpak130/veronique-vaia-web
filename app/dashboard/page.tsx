@@ -151,11 +151,13 @@ export default function Drive() {
               <div className="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
                 Resources
               </div>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Image className="w-5 h-5" />
-                <span>Assets</span>
-              </Button>
-              <Link href="/dashboard/keywords">
+              <Link href="/dashboard/assets" className="block">
+                <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                  <Image className="w-5 h-5" />
+                  <span>Assets</span>
+                </Button>
+              </Link>
+              <Link href="/dashboard/keywords" className="block">
                 <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
                   <Search className="w-5 h-5" />
                   <span>Keywords</span>
