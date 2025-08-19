@@ -225,72 +225,58 @@ export default function KeywordsPage() {
         <main className="flex-1 p-6 ml-64">
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Keyword Sets</h1>
-              <p className="text-gray-600">Manage your collection of keyword sets for different projects and themes</p>
-            </div>
-            <Button 
-              className="flex items-center space-x-2 text-white font-medium"
-              style={{ backgroundColor: BRAND_COLORS.blue }}
-            >
-              <Plus className="w-4 h-4" />
-              <span>New Keyword Set</span>
-            </Button>
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Keyword Sets</h1>
+            <p className="text-gray-600">Manage your collection of keyword sets for different projects and themes</p>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Total Sets</p>
-                    <p className="text-2xl font-bold text-gray-900">{keywordSets.length}</p>
-                  </div>
-                  <Tag className="w-8 h-8 text-gray-400" />
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Total Keywords</p>
-                    <p className="text-2xl font-bold text-gray-900">{keywordSets.reduce((acc, set) => acc + set.count, 0)}</p>
-                  </div>
-                  <Search className="w-8 h-8 text-gray-400" />
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Categories</p>
-                    <p className="text-2xl font-bold text-gray-900">{new Set(keywordSets.map(set => set.category)).size}</p>
-                  </div>
-                  <Grid3X3 className="w-8 h-8 text-gray-400" />
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Recent Updates</p>
-                    <p className="text-2xl font-bold text-gray-900">3</p>
-                  </div>
-                  <Calendar className="w-8 h-8 text-gray-400" />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Add New Keyword Set */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Plus className="w-5 h-5" />
+                <span>Create New Keyword Set</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Set Name
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Enter keyword set name"
+                  className="w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Keywords
+                </label>
+                <textarea
+                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  rows={4}
+                  placeholder="Enter keywords separated by commas (e.g., creative, design, modern, elegant, bold, minimalist)"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Separate keywords with commas. They will be automatically trimmed and formatted.
+                </p>
+              </div>
+              <div className="flex justify-end">
+                <Button 
+                  className="text-white font-medium"
+                  style={{ backgroundColor: BRAND_COLORS.blue }}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Create Keyword Set
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Keyword Sets List - One per row */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             {filteredKeywordSets.map((keywordSet) => {
-              const categoryColors = getCategoryColor(keywordSet.category);
               return (
                 <Card key={keywordSet.id} className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardContent className="p-6">
@@ -298,32 +284,22 @@ export default function KeywordsPage() {
                       {/* Left side - Main info */}
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="text-lg font-semibold text-gray-900">{keywordSet.name}</h3>
-                          <span 
-                            className="px-2 py-1 text-xs font-medium rounded-full"
-                            style={{ backgroundColor: categoryColors.bg, color: categoryColors.text }}
-                          >
-                            {keywordSet.category}
-                          </span>
-                          <span className="text-sm text-gray-500">{keywordSet.count} keywords</span>
-                          <span className="text-sm text-gray-500">•</span>
-                          <span className="text-sm text-gray-500">Updated {keywordSet.lastUpdated}</span>
+                          <h3 className="text-base font-medium text-gray-900">{keywordSet.name}</h3>
                         </div>
-                        <p className="text-sm text-gray-600 mb-3">{keywordSet.description}</p>
                         
                         {/* Keywords Preview */}
                         <div className="flex flex-wrap gap-1">
-                          {keywordSet.keywords.slice(0, 8).map((keyword, index) => (
+                          {keywordSet.keywords.slice(0, 12).map((keyword, index) => (
                             <span 
                               key={index}
-                              className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"
+                              className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full"
                             >
                               {keyword}
                             </span>
                           ))}
-                          {keywordSet.keywords.length > 8 && (
-                            <span className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded-full">
-                              +{keywordSet.keywords.length - 8} more
+                          {keywordSet.keywords.length > 12 && (
+                            <span className="px-3 py-1 text-sm bg-gray-200 text-gray-600 rounded-full">
+                              +{keywordSet.keywords.length - 12} more
                             </span>
                           )}
                         </div>
