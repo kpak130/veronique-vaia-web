@@ -1,11 +1,62 @@
+"use client";
+
 import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import { useState } from "react";
 import { BRAND_COLORS } from "@/lib/theme";
 
 export default function Drive() {
+  const [activeProjectTab, setActiveProjectTab] = useState<'public' | 'team' | 'private'>('private');
+
+  const privateProjects = [
+    { category: 'Logos', name: 'Tech Startup Logo Design', activity: 'You edited • Yesterday', owner: 'me', shared: 'My Vaia' },
+    { category: 'Logos', name: 'Coffee Shop Branding', activity: 'You opened • 2 days ago', owner: 'me', shared: 'My Vaia' },
+    { category: 'Logos', name: 'Fitness Brand Logo', activity: 'You edited • 3 days ago', owner: 'me', shared: 'My Vaia' },
+    { category: 'Posters', name: 'Summer Music Festival Poster', activity: 'You created • 4 days ago', owner: 'me', shared: 'My Vaia' },
+    { category: 'Marketing', name: 'Social Media Campaign Assets', activity: 'You created • 1 week ago', owner: 'me', shared: 'My Vaia' },
+    { category: 'Mockups', name: 'T-Shirt Mockup Collection', activity: 'You edited • 3 weeks ago', owner: 'me', shared: 'My Vaia' },
+    { category: 'Names', name: 'Tech Startup Name Ideas', activity: 'You created • 1 month ago', owner: 'me', shared: 'My Vaia' },
+  ];
+
+  const teamProjects = [
+    { category: 'Posters', name: 'Product Launch Event', activity: 'Team edited • 5 days ago', owner: 'Design Team', shared: 'Team Workspace' },
+    { category: 'Posters', name: 'Art Exhibition Announcement', activity: 'Sarah edited • 1 week ago', owner: 'Marketing Team', shared: 'Team Workspace' },
+    { category: 'Marketing', name: 'Email Newsletter Content', activity: 'John edited • 2 weeks ago', owner: 'Content Team', shared: 'Team Workspace' },
+    { category: 'Marketing', name: 'Product Catalog Images', activity: 'Team opened • 2 weeks ago', owner: 'Marketing Team', shared: 'Team Workspace' },
+    { category: 'Mockups', name: 'Business Card Presentations', activity: 'Alex created • 1 month ago', owner: 'Design Team', shared: 'Team Workspace' },
+    { category: 'Mockups', name: 'Packaging Design Mockups', activity: 'Team opened • 1 month ago', owner: 'Product Team', shared: 'Team Workspace' },
+  ];
+
+  const publicProjects = [
+    { category: 'Logos', name: 'Open Source Project Logo', activity: 'Community edited • 2 days ago', owner: 'Community', shared: 'Public Gallery' },
+    { category: 'Posters', name: 'Public Health Campaign', activity: 'Contributors added • 1 week ago', owner: 'Health Org', shared: 'Public Gallery' },
+    { category: 'Marketing', name: 'Environmental Awareness Content', activity: 'Community created • 2 weeks ago', owner: 'Green Initiative', shared: 'Public Gallery' },
+    { category: 'Names', name: 'Restaurant Brand Names', activity: 'Public edited • 2 months ago', owner: 'Community', shared: 'Public Gallery' },
+    { category: 'Mockups', name: 'Nonprofit Event Materials', activity: 'Volunteers created • 3 weeks ago', owner: 'Nonprofit Org', shared: 'Public Gallery' },
+  ];
+
+  const getCurrentProjects = () => {
+    switch (activeProjectTab) {
+      case 'public': return publicProjects;
+      case 'team': return teamProjects;
+      case 'private': return privateProjects;
+      default: return privateProjects;
+    }
+  };
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'Logos': return { bg: BRAND_COLORS.coral, text: 'white' };
+      case 'Posters': return { bg: BRAND_COLORS.darkBlue, text: 'white' };
+      case 'Marketing': return { bg: BRAND_COLORS.lime, text: BRAND_COLORS.darkBlue };
+      case 'Mockups': return { bg: BRAND_COLORS.blue, text: 'white' };
+      case 'Names': return { bg: BRAND_COLORS.coral, text: 'white' };
+      default: return { bg: BRAND_COLORS.blue, text: 'white' };
+    }
+  };
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-2 bg-white border-b">
@@ -181,77 +232,57 @@ export default function Drive() {
               </div>
             </div>
 
-            <div className="mb-8">
-              <h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                <span className="mr-2">📁</span>
-                Suggested folders
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6" style={{ color: BRAND_COLORS.blue }} />
-                        <div>
-                          <div className="font-medium text-gray-900">Brand Assets</div>
-                          <div className="text-sm text-gray-500">In My Vaia</div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                        <span>⋮</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6" style={{ color: BRAND_COLORS.blue }} />
-                        <div>
-                          <div className="font-medium text-gray-900">Marketing Materials</div>
-                          <div className="text-sm text-gray-500">In Shared with me</div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                        <span>⋮</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6" style={{ color: BRAND_COLORS.blue }} />
-                        <div>
-                          <div className="font-medium text-gray-900">Product Mockups</div>
-                          <div className="text-sm text-gray-500">In My Vaia</div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                        <span>⋮</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
             <div>
               <h2 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
                 <span className="mr-2">📄</span>
-                Suggested files
+                Projects
               </h2>
+              
+              {/* Project Tabs */}
+              <div className="mb-4">
+                <div className="flex space-x-1 bg-gray-100 rounded-lg p-1 w-fit">
+                  <button
+                    onClick={() => setActiveProjectTab('public')}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                    style={{
+                      backgroundColor: activeProjectTab === 'public' ? 'white' : 'transparent',
+                      color: activeProjectTab === 'public' ? BRAND_COLORS.darkBlue : '#6B7280'
+                    }}
+                  >
+                    Public
+                  </button>
+                  <button
+                    onClick={() => setActiveProjectTab('team')}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                    style={{
+                      backgroundColor: activeProjectTab === 'team' ? 'white' : 'transparent',
+                      color: activeProjectTab === 'team' ? BRAND_COLORS.darkBlue : '#6B7280'
+                    }}
+                  >
+                    Team
+                  </button>
+                  <button
+                    onClick={() => setActiveProjectTab('private')}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                    style={{
+                      backgroundColor: activeProjectTab === 'private' ? 'white' : 'transparent',
+                      color: activeProjectTab === 'private' ? BRAND_COLORS.darkBlue : '#6B7280'
+                    }}
+                  >
+                    Private
+                  </button>
+                </div>
+              </div>
+              
               <Card>
                 <CardContent className="p-0">
                   <div className="p-4 border-b border-gray-200">
                     <div className="flex justify-between items-center">
                       <div className="flex space-x-4 text-sm text-gray-500">
                         <span>Name</span>
-                        <span>Reason suggested</span>
+                        <span>Last Activity</span>
                         <span>Owner</span>
-                        <span>Location</span>
+                        <span>Shared</span>
                       </div>
                       <div className="flex space-x-2">
                         <Button variant="ghost" size="icon">
@@ -261,60 +292,32 @@ export default function Drive() {
                     </div>
                   </div>
                   <div className="divide-y divide-gray-200">
-                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.coral }}>
-                            <span className="text-white text-xs font-bold">L</span>
+                    {getCurrentProjects().map((project, index) => {
+                      const categoryColors = getCategoryColor(project.category);
+                      return (
+                        <div key={index} className="p-4 hover:bg-gray-50 cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <span 
+                                className="px-2 py-1 text-xs font-medium rounded-full" 
+                                style={{ backgroundColor: categoryColors.bg, color: categoryColors.text }}
+                              >
+                                {project.category}
+                              </span>
+                              <span className="font-medium text-gray-900">{project.name}</span>
+                            </div>
+                            <div className="flex space-x-16 text-sm text-gray-500">
+                              <span>{project.activity}</span>
+                              <span>{project.owner}</span>
+                              <span>{project.shared}</span>
+                            </div>
+                            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
+                              <span>⋮</span>
+                            </Button>
                           </div>
-                          <span className="font-medium text-gray-900">Company Logo Draft</span>
                         </div>
-                        <div className="flex space-x-16 text-sm text-gray-500">
-                          <span>You edited • Yesterday</span>
-                          <span>me</span>
-                          <span>My Vaia</span>
-                        </div>
-                        <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                          <span>⋮</span>
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
-                            <span className="text-white text-xs font-bold">P</span>
-                          </div>
-                          <span className="font-medium text-gray-900">Product Launch Poster</span>
-                        </div>
-                        <div className="flex space-x-16 text-sm text-gray-500">
-                          <span>You opened • 2 days ago</span>
-                          <span>me</span>
-                          <span>My Vaia</span>
-                        </div>
-                        <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                          <span>⋮</span>
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.lime }}>
-                            <span className="text-xs font-bold" style={{ color: BRAND_COLORS.darkBlue }}>M</span>
-                          </div>
-                          <span className="font-medium text-gray-900">T-Shirt Mockup Collection</span>
-                        </div>
-                        <div className="flex space-x-16 text-sm text-gray-500">
-                          <span>You edited • 3 days ago</span>
-                          <span>me</span>
-                          <span>Shared with me</span>
-                        </div>
-                        <Button variant="ghost" size="icon" className="text-gray-400 hover:text-gray-600">
-                          <span>⋮</span>
-                        </Button>
-                      </div>
-                    </div>
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
