@@ -55,6 +55,16 @@ export default function BrandNamesSlogansProject() {
     }
   };
 
+  const getTrademarkStatusBorder = (status: string) => {
+    switch (status) {
+      case 'available': return 'border-green-300';
+      case 'registered': return 'border-red-300';
+      case 'pending': return 'border-yellow-300';
+      case 'unknown': return 'border-gray-300';
+      default: return 'border-gray-300';
+    }
+  };
+
   const handleGenerateContent = () => {
     setIsGenerating(true);
     setShowContent(false);
@@ -241,22 +251,22 @@ export default function BrandNamesSlogansProject() {
               <>
                 {Array.from({ length: 10 }, (_, i) => (
                   <Card key={`loading-${i}`} className="animate-pulse">
-                    <CardContent className="p-6">
+                    <CardContent className="px-4 py-0">
                       <div className="space-y-4">
                         {/* Name placeholder */}
-                        <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                        <div className="h-5 bg-gray-200 rounded w-3/4"></div>
                         
                         {/* Slogan placeholder */}
-                        <div className="h-5 bg-gray-100 rounded w-full"></div>
+                        <div className="h-4 bg-gray-100 rounded w-full"></div>
                         
                         {/* Trademark status placeholder */}
-                        <div className="h-6 bg-gray-100 rounded w-1/2"></div>
+                        <div className="h-5 bg-gray-100 rounded w-1/2"></div>
                         
                         {/* Button placeholder */}
-                        <div className="h-8 bg-gray-100 rounded w-full"></div>
+                        <div className="h-7 bg-gray-100 rounded w-full"></div>
                       </div>
-                      <div className="flex items-center justify-center mt-4">
-                        <Loader2 className="w-6 h-6 animate-spin" style={{ color: BRAND_COLORS.blue }} />
+                      <div className="flex items-center justify-center mt-3">
+                        <Loader2 className="w-5 h-5 animate-spin" style={{ color: BRAND_COLORS.blue }} />
                       </div>
                     </CardContent>
                   </Card>
@@ -267,22 +277,22 @@ export default function BrandNamesSlogansProject() {
             {/* Actual content */}
             {showContent && brandData.map((brand) => (
               <Card key={brand.id} className="group hover:shadow-lg transition-all duration-200">
-                <CardContent className="p-6">
+                <CardContent className="px-4 py-0">
                   <div className="space-y-4">
                     {/* Name */}
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 leading-tight">{brand.name}</h3>
+                      <h3 className="text-lg font-bold text-gray-900 leading-tight">{brand.name}</h3>
                     </div>
                     
                     {/* Slogan */}
                     <div>
-                      <p className="text-lg font-medium text-gray-700 italic">&ldquo;{brand.slogan}&rdquo;</p>
+                      <p className="text-sm font-medium text-gray-700 italic">&ldquo;{brand.slogan}&rdquo;</p>
                     </div>
                     
-                    {/* Trademark Status */}
+                    {/* Trademark Status - More Prominent */}
                     <div>
-                      <span className={`inline-block px-3 py-1 text-sm rounded-full ${getTrademarkStatusColor(brand.trademarkStatus)}`}>
-                        Trademark: {getTrademarkStatusText(brand.trademarkStatus)}
+                      <span className={`inline-block px-2 py-1 text-xs font-semibold rounded border ${getTrademarkStatusColor(brand.trademarkStatus)} ${getTrademarkStatusBorder(brand.trademarkStatus)}`}>
+                        {getTrademarkStatusText(brand.trademarkStatus).toUpperCase()}
                       </span>
                     </div>
                     
@@ -290,14 +300,14 @@ export default function BrandNamesSlogansProject() {
                     <div>
                       <Button 
                         size="sm" 
-                        variant="outline" 
-                        className="w-full"
+                        className="w-full text-sm font-medium py-1"
+                        style={{ backgroundColor: BRAND_COLORS.blue, color: 'white' }}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleVerifyTrademark(brand.id);
                         }}
                       >
-                        Verify Trademark Status
+                        Verify Trademark
                       </Button>
                     </div>
                   </div>
