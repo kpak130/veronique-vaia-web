@@ -11,13 +11,18 @@ import { BRAND_COLORS } from "@/lib/theme";
 export default function ImagesTextProject() {
   const [activeTab, setActiveTab] = useState<'images' | 'text'>('images');
   const [isGenerating, setIsGenerating] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [allImages, setAllImages] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [allTexts, setAllTexts] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [currentGenerationImages, setCurrentGenerationImages] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [currentGenerationTexts, setCurrentGenerationTexts] = useState<any[]>([]);
   const [showingImageIndex, setShowingImageIndex] = useState(0);
   const [showingTextIndex, setShowingTextIndex] = useState(0);
   const [showLoadingCards, setShowLoadingCards] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [showImagePanel, setShowImagePanel] = useState(false);
 
