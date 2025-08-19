@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon, Upload, Loader2 } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon, Upload, Loader2, X, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,19 +18,31 @@ export default function ImagesTextProject() {
   const [showingImageIndex, setShowingImageIndex] = useState(0);
   const [showingTextIndex, setShowingTextIndex] = useState(0);
   const [showLoadingCards, setShowLoadingCards] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [showImagePanel, setShowImagePanel] = useState(false);
 
   const newImages = [
-    { url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", title: "Business Meeting", size: "1200x800px" },
-    { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop", title: "Team Collaboration", size: "1080x1080px" },
-    { url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop", title: "Office Space", size: "800x600px" },
-    { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=800&fit=crop", title: "Data Analytics", size: "1200x800px" },
-    { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=800&fit=crop", title: "Creative Workshop", size: "1080x1080px" },
-    { url: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop", title: "Remote Work", size: "800x600px" },
-    { url: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=800&fit=crop", title: "Strategy Session", size: "1200x800px" },
-    { url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=800&fit=crop", title: "Team Success", size: "1080x1080px" },
-    { url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=600&fit=crop", title: "Modern Workspace", size: "800x600px" },
-    { url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=800&fit=crop", title: "Team Brainstorming", size: "1200x800px" }
+    { url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", title: "Business Meeting", size: "1200x800px", prompt: "Professional business meeting with diverse team members discussing strategy in modern conference room" },
+    { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop", title: "Team Collaboration", size: "1080x1080px", prompt: "Creative team collaborating on innovative project with laptops and brainstorming materials" },
+    { url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop", title: "Office Space", size: "800x600px", prompt: "Modern minimalist office space with natural lighting and ergonomic furniture design" },
+    { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=800&fit=crop", title: "Data Analytics", size: "1200x800px", prompt: "Data visualization dashboard showing business analytics and growth metrics on multiple screens" },
+    { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=800&fit=crop", title: "Creative Workshop", size: "1080x1080px", prompt: "Creative workshop session with designers working on user experience and product development" },
+    { url: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop", title: "Remote Work", size: "800x600px", prompt: "Remote worker in comfortable home office setup with technology and productivity tools" },
+    { url: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=800&fit=crop", title: "Strategy Session", size: "1200x800px", prompt: "Executive strategy planning session with whiteboards and business planning materials" },
+    { url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=800&fit=crop", title: "Team Success", size: "1080x1080px", prompt: "Successful team celebrating project completion with positive energy and achievement" },
+    { url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=600&fit=crop", title: "Modern Workspace", size: "800x600px", prompt: "Contemporary workspace design with open layout and collaborative work areas" },
+    { url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=800&fit=crop", title: "Team Brainstorming", size: "1200x800px", prompt: "Dynamic brainstorming session with sticky notes and creative ideation process" }
   ];
+
+  const handleImageClick = (image: any) => {
+    setSelectedImage(image);
+    setShowImagePanel(true);
+  };
+
+  const handleClosePanel = () => {
+    setShowImagePanel(false);
+    setSelectedImage(null);
+  };
 
   const newTexts = [
     { type: 'Marketing Copy', category: 'Promotional content', title: 'Transform Your Business Today!', content: 'Discover innovative solutions that drive growth and success. Our cutting-edge approach combines industry expertise with modern technology to deliver exceptional results for your business.', words: 42 },
@@ -264,26 +276,19 @@ export default function ImagesTextProject() {
                 const isLoaded = !!image;
                 
                 return (
-                  <Card key={`generating-${i}`} className={!isLoaded ? "animate-pulse" : "group hover:shadow-lg transition-all duration-200 cursor-pointer"}>
+                  <Card 
+                    key={`generating-${i}`} 
+                    className={!isLoaded ? "animate-pulse" : "hover:shadow-lg transition-all duration-200 cursor-pointer"}
+                    onClick={() => isLoaded && handleImageClick(image)}
+                  >
                     <CardContent className="p-4">
                       <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
                         {isLoaded ? (
-                          <>
-                            <img 
-                              src={image.url}
-                              alt={image.title}
-                              className="w-full h-full object-cover"
-                            />
-                            {/* Hover overlay */}
-                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                              <div className="flex space-x-2">
-                                <Button size="sm" variant="secondary" className="text-xs">
-                                  <Download className="w-3 h-3 mr-1" />
-                                  Download
-                                </Button>
-                              </div>
-                            </div>
-                          </>
+                          <img 
+                            src={image.url}
+                            alt={image.title}
+                            className="w-full h-full object-cover"
+                          />
                         ) : (
                           <div className="flex items-center justify-center h-full">
                             <Loader2 className="w-8 h-8 animate-spin" style={{ color: BRAND_COLORS.blue }} />
@@ -327,7 +332,11 @@ export default function ImagesTextProject() {
 
               {/* Existing images from previous generations - shown after loading cards */}
               {allImages.map((image, i) => (
-                <Card key={`existing-${i}`} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
+                <Card 
+                  key={`existing-${i}`} 
+                  className="hover:shadow-lg transition-all duration-200 cursor-pointer"
+                  onClick={() => handleImageClick(image)}
+                >
                   <CardContent className="p-4">
                     <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
                       <img 
@@ -335,15 +344,6 @@ export default function ImagesTextProject() {
                         alt={image.title}
                         className="w-full h-full object-cover"
                       />
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                        <div className="flex space-x-2">
-                          <Button size="sm" variant="secondary" className="text-xs">
-                            <Download className="w-3 h-3 mr-1" />
-                            Download
-                          </Button>
-                        </div>
-                      </div>
                     </div>
                     
                     <div className="flex items-center justify-between">
@@ -511,6 +511,94 @@ export default function ImagesTextProject() {
             </Button>
           </div>
         </main>
+
+        {/* Image Detail Sliding Panel */}
+        {showImagePanel && (
+          <>
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-20 z-50 transition-opacity"
+              onClick={handleClosePanel}
+            />
+            
+            {/* Sliding Panel */}
+            <div className={`fixed top-0 right-0 h-full w-[500px] bg-white shadow-xl z-50 transform transition-transform duration-300 ${showImagePanel ? 'translate-x-0' : 'translate-x-full'}`}>
+              <div className="flex flex-col h-full">
+                {/* Header */}
+                <div className="flex items-center justify-between p-4 border-b">
+                  <h3 className="text-lg font-semibold text-gray-900">Image Details</h3>
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    onClick={handleClosePanel}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 overflow-y-auto p-4">
+                  {selectedImage && (
+                    <div className="space-y-4">
+                      {/* Image */}
+                      <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                        <img 
+                          src={selectedImage.url}
+                          alt={selectedImage.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      {/* Image Info */}
+                      <div>
+                        <h4 className="font-semibold text-gray-900 mb-1">{selectedImage.title}</h4>
+                        <p className="text-sm text-gray-500">{selectedImage.size}</p>
+                      </div>
+
+                      {/* Prompt */}
+                      <div>
+                        <h5 className="font-medium text-gray-900 mb-2">Generation Prompt</h5>
+                        <div className="bg-gray-50 rounded-lg p-3">
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {selectedImage.prompt}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="space-y-2">
+                        <Button 
+                          className="w-full" 
+                          style={{ backgroundColor: BRAND_COLORS.blue }}
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          Download Image
+                        </Button>
+                        
+                        <Button 
+                          variant="outline" 
+                          className="w-full"
+                        >
+                          <Copy className="w-4 h-4 mr-2" />
+                          Copy Prompt
+                        </Button>
+                        
+                        <Button 
+                          variant="outline" 
+                          className="w-full"
+                        >
+                          <Share className="w-4 h-4 mr-2" />
+                          Share Image
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
