@@ -11,8 +11,10 @@ import { BRAND_COLORS } from "@/lib/theme";
 export default function ImagesTextProject() {
   const [activeTab, setActiveTab] = useState<'images' | 'text'>('images');
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedImages, setGeneratedImages] = useState<any[]>([]);
-  const [generatedTexts, setGeneratedTexts] = useState<any[]>([]);
+  const [allImages, setAllImages] = useState<any[]>([]);
+  const [allTexts, setAllTexts] = useState<any[]>([]);
+  const [currentGenerationImages, setCurrentGenerationImages] = useState<any[]>([]);
+  const [currentGenerationTexts, setCurrentGenerationTexts] = useState<any[]>([]);
   const [showingImageIndex, setShowingImageIndex] = useState(0);
   const [showingTextIndex, setShowingTextIndex] = useState(0);
   const [showLoadingCards, setShowLoadingCards] = useState(false);
@@ -49,9 +51,9 @@ export default function ImagesTextProject() {
     setShowingImageIndex(0);
     setShowingTextIndex(0);
     
-    // Initialize empty arrays for the new generation
-    setGeneratedImages(new Array(10).fill(null));
-    setGeneratedTexts(new Array(10).fill(null));
+    // Initialize empty arrays for the current generation
+    setCurrentGenerationImages(new Array(10).fill(null));
+    setCurrentGenerationTexts(new Array(10).fill(null));
     
     // After 10 seconds, start showing images/texts one by one
     setTimeout(() => {
@@ -60,24 +62,41 @@ export default function ImagesTextProject() {
       // Show images one by one with 1 second intervals
       newImages.forEach((image, index) => {
         setTimeout(() => {
-          setGeneratedImages(prev => {
+          setCurrentGenerationImages(prev => {
             const newArray = [...prev];
             newArray[index] = image;
             return newArray;
           });
           setShowingImageIndex(index + 1);
+          
+          // When the last image is loaded, add all to permanent collection at the beginning
+          if (index === newImages.length - 1) {
+            setTimeout(() => {
+              setAllImages(prev => [...newImages, ...prev]);
+              setShowLoadingCards(false);
+              setCurrentGenerationImages([]);
+            }, 1000);
+          }
         }, index * 1000);
       });
 
       // Show texts one by one with 1 second intervals
       newTexts.forEach((text, index) => {
         setTimeout(() => {
-          setGeneratedTexts(prev => {
+          setCurrentGenerationTexts(prev => {
             const newArray = [...prev];
             newArray[index] = text;
             return newArray;
           });
           setShowingTextIndex(index + 1);
+          
+          // When the last text is loaded, add all to permanent collection at the beginning
+          if (index === newTexts.length - 1) {
+            setTimeout(() => {
+              setAllTexts(prev => [...newTexts, ...prev]);
+              setCurrentGenerationTexts([]);
+            }, 1000);
+          }
         }, index * 1000);
       });
     }, 10000);
@@ -239,13 +258,13 @@ export default function ImagesTextProject() {
           {/* Images Tab Content */}
           {activeTab === 'images' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Loading/Generated cards */}
+              {/* Current generation loading/Generated cards - shown first */}
               {showLoadingCards && Array.from({ length: 10 }, (_, i) => {
-                const image = generatedImages[i];
+                const image = currentGenerationImages[i];
                 const isLoaded = !!image;
                 
                 return (
-                  <Card key={`image-${i}`} className={!isLoaded ? "animate-pulse" : "group hover:shadow-lg transition-all duration-200 cursor-pointer"}>
+                  <Card key={`generating-${i}`} className={!isLoaded ? "animate-pulse" : "group hover:shadow-lg transition-all duration-200 cursor-pointer"}>
                     <CardContent className="p-4">
                       <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
                         {isLoaded ? (
@@ -305,10 +324,10 @@ export default function ImagesTextProject() {
                   </Card>
                 );
               })}
-              
-              {/* Existing generated content (from previous generations) */}
-              {!showLoadingCards && generatedImages.map((image, i) => (
-                <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
+
+              {/* Existing images from previous generations - shown after loading cards */}
+              {allImages.map((image, i) => (
+                <Card key={`existing-${i}`} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                   <CardContent className="p-4">
                     <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
                       <img 
@@ -316,7 +335,6 @@ export default function ImagesTextProject() {
                         alt={image.title}
                         className="w-full h-full object-cover"
                       />
-                      
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
                         <div className="flex space-x-2">
@@ -351,9 +369,9 @@ export default function ImagesTextProject() {
           {/* Text Tab Content */}
           {activeTab === 'text' && (
             <div className="space-y-4">
-              {/* Loading/Generated cards for text */}
+              {/* Current generation loading/Generated cards for text - shown first */}
               {showLoadingCards && Array.from({ length: 10 }, (_, i) => {
-                const text = generatedTexts[i];
+                const text = currentGenerationTexts[i];
                 const isLoaded = !!text;
                 
                 return (
@@ -440,10 +458,10 @@ export default function ImagesTextProject() {
                   </Card>
                 );
               })}
-              
-              {/* Existing generated text content (from previous generations) */}
-              {!showLoadingCards && generatedTexts.map((text, i) => (
-                <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
+
+              {/* Existing texts from previous generations - shown after loading cards */}
+              {allTexts.map((text, i) => (
+                <Card key={`existing-text-${i}`} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center space-x-3">
@@ -451,12 +469,8 @@ export default function ImagesTextProject() {
                           <FileText className="w-4 h-4" style={{ color: BRAND_COLORS.blue }} />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-900">
-                            {text.type}
-                          </h3>
-                          <p className="text-sm text-gray-500">
-                            {text.category}
-                          </p>
+                          <h3 className="font-semibold text-gray-900">{text.type}</h3>
+                          <p className="text-sm text-gray-500">{text.category}</p>
                         </div>
                       </div>
                       <div className="flex space-x-1">
@@ -479,9 +493,7 @@ export default function ImagesTextProject() {
                     </div>
                     
                     <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                      <span className="text-sm text-gray-500">
-                        {text.words} words
-                      </span>
+                      <span className="text-sm text-gray-500">{text.words} words</span>
                       <Button size="sm" variant="outline" className="text-xs">
                         Copy Text
                       </Button>
