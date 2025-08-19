@@ -155,10 +155,12 @@ export default function Drive() {
                 <Image className="w-5 h-5" />
                 <span>Assets</span>
               </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Search className="w-5 h-5" />
-                <span>Keywords</span>
-              </Button>
+              <Link href="/dashboard/keywords">
+                <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                  <Search className="w-5 h-5" />
+                  <span>Keywords</span>
+                </Button>
+              </Link>
             </div>
 
             {/* Collaboration */}
