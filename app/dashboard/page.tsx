@@ -145,10 +145,22 @@ export default function Drive() {
                     </CardContent>
                   </Card>
                 </Link>
+                <Link href="/dashboard/images-text">
+                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">I</span>
+                        </div>
+                        <span className="text-gray-700 font-medium">Images / Text</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
                 <Card className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
+                      <div className="w-6 h-6 bg-teal-500 rounded flex items-center justify-center">
                         <span className="text-white text-xs font-bold">M</span>
                       </div>
                       <span className="text-gray-700 font-medium">Physical mockups</span>
