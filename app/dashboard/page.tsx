@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database, Globe, History, Lock } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database, Globe, History, Lock, Sparkles, Image, Palette, Lightbulb, MessageCircle, Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -113,38 +113,24 @@ export default function Drive() {
           <div className="p-4">
             <Button className="flex items-center space-x-3 w-full justify-start rounded-2xl shadow-sm" variant="outline">
               <Plus className="w-6 h-6" />
-              <span className="font-medium">New</span>
+              <span className="font-medium">Create New</span>
             </Button>
           </div>
 
           <nav className="px-2">
+            {/* Core Navigation */}
             <div className="space-y-1">
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 rounded-r-full" style={{ color: BRAND_COLORS.blue, backgroundColor: `${BRAND_COLORS.blue}15` }}>
                 <Home className="w-5 h-5" />
                 <span className="font-medium">Home</span>
               </Button>
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Activity className="w-5 h-5" />
-                <span>Activity</span>
+                <Sparkles className="w-5 h-5" />
+                <span>Create</span>
               </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Users className="w-5 h-5" />
-                <span>Workspaces</span>
-              </Button>
-            </div>
-
-            <div className="mt-6 space-y-1">
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
                 <Folder className="w-5 h-5" />
-                <span>My Vaia</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Share className="w-5 h-5" />
-                <span>Shared drives</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Users className="w-5 h-5" />
-                <span>Shared with me</span>
+                <span>Projects</span>
               </Button>
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
                 <Clock className="w-5 h-5" />
@@ -152,17 +138,63 @@ export default function Drive() {
               </Button>
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
                 <Star className="w-5 h-5" />
-                <span>Starred</span>
+                <span>Favorites</span>
               </Button>
+            </div>
+
+            {/* Creative Resources */}
+            <div className="mt-6 space-y-1">
+              <div className="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                Resources
+              </div>
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                <Grid3X3 className="w-5 h-5" />
+                <span>Templates</span>
+              </Button>
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                <Image className="w-5 h-5" />
+                <span>Assets</span>
+              </Button>
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                <Palette className="w-5 h-5" />
+                <span>Brand Kits</span>
+              </Button>
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                <Lightbulb className="w-5 h-5" />
+                <span>Inspiration</span>
+              </Button>
+            </div>
+
+            {/* Collaboration */}
+            <div className="mt-6 space-y-1">
+              <div className="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                Collaboration
+              </div>
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                <Users className="w-5 h-5" />
+                <span>Team Workspace</span>
+              </Button>
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                <Share className="w-5 h-5" />
+                <span>Shared with me</span>
+              </Button>
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                <MessageCircle className="w-5 h-5" />
+                <span>Comments</span>
+              </Button>
+            </div>
+
+            {/* Management */}
+            <div className="mt-6 space-y-1">
+              <div className="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                Management
+              </div>
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
                 <Trash className="w-5 h-5" />
                 <span>Trash</span>
               </Button>
-            </div>
-
-            <div className="mt-6">
               <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                <Database className="w-5 h-5" />
+                <Cloud className="w-5 h-5" />
                 <span>Storage</span>
               </Button>
               <div className="px-3 text-xs text-gray-500 mt-1">15 GB of 15 GB used</div>
