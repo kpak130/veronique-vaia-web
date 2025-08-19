@@ -25,6 +25,11 @@ export default function BrandNamesSlogansProject() {
   const [selectedBrandName, setSelectedBrandName] = useState<BrandName | null>(null);
   const [showBrandPanel, setShowBrandPanel] = useState(false);
 
+  const handleOpenPanel = (brandName: BrandName) => {
+    setSelectedBrandName(brandName);
+    setShowBrandPanel(true);
+  };
+
   const handleClosePanel = () => {
     setShowBrandPanel(false);
     setSelectedBrandName(null);
@@ -77,16 +82,12 @@ export default function BrandNamesSlogansProject() {
   };
 
   const brandData: BrandName[] = [
-    { id: 1, name: "TechFlow", slogan: "Innovation in Motion", trademarkStatus: "available", type: "combo", industry: "Technology", style: "Modern", prompt: "Tech company focused on workflow automation and innovation" },
-    { id: 2, name: "GreenLeaf Solutions", slogan: "Growing Tomorrow", trademarkStatus: "unknown", type: "combo", industry: "Environmental", style: "Natural", prompt: "Sustainable solutions company with environmental focus" },
-    { id: 3, name: "PixelCraft", slogan: "Digital Dreams Realized", trademarkStatus: "pending", type: "combo", industry: "Design", style: "Creative", prompt: "Digital design agency specializing in creative solutions" },
-    { id: 4, name: "VitalCore", slogan: "Strength from Within", trademarkStatus: "available", type: "combo", industry: "Fitness", style: "Bold", prompt: "Fitness and wellness brand promoting inner strength" },
-    { id: 5, name: "CloudVista", slogan: "Your Sky, Your Way", trademarkStatus: "registered", type: "combo", industry: "Cloud Services", style: "Professional", prompt: "Cloud computing services with personalized approach" },
-    { id: 6, name: "FreshBite Co.", slogan: "Taste the Difference", trademarkStatus: "available", type: "combo", industry: "Food", style: "Friendly", prompt: "Fresh food company emphasizing quality and taste" },
-    { id: 7, name: "NextGen Academy", slogan: "Learning Without Limits", trademarkStatus: "unknown", type: "combo", industry: "Education", style: "Progressive", prompt: "Modern educational institution focused on unlimited learning" },
-    { id: 8, name: "PurePath", slogan: "Clarity in Every Step", trademarkStatus: "available", type: "combo", industry: "Consulting", style: "Clean", prompt: "Business consulting firm providing clear strategic guidance" },
-    { id: 9, name: "BlueWave Media", slogan: "Making Waves in Digital", trademarkStatus: "pending", type: "combo", industry: "Media", style: "Dynamic", prompt: "Digital media company creating impactful content" },
-    { id: 10, name: "Zenith Labs", slogan: "Peak Performance Solutions", trademarkStatus: "available", type: "combo", industry: "Research", style: "Scientific", prompt: "Research laboratory focused on achieving peak performance" }
+    { id: 1, name: "TechFlow", slogan: "Innovation in Motion", trademarkStatus: "available", type: "combo", industry: "Technology", style: "Modern", prompt: "The name 'TechFlow' combines 'Tech' (technology) with 'Flow' (smooth process), suggesting seamless technological solutions. The slogan 'Innovation in Motion' emphasizes continuous progress and dynamic innovation, appealing to forward-thinking businesses seeking cutting-edge solutions." },
+    { id: 2, name: "GreenLeaf Solutions", slogan: "Growing Tomorrow", trademarkStatus: "unknown", type: "combo", industry: "Environmental", style: "Natural", prompt: "'GreenLeaf' evokes nature and environmental consciousness, with 'Solutions' indicating problem-solving capability. 'Growing Tomorrow' suggests sustainable development and future-focused environmental stewardship, resonating with eco-conscious consumers and businesses." },
+    { id: 3, name: "PixelCraft", slogan: "Digital Dreams Realized", trademarkStatus: "pending", type: "combo", industry: "Design", style: "Creative", prompt: "'PixelCraft' merges 'Pixel' (digital element) with 'Craft' (skilled artistry), positioning the brand as digital artisans. 'Digital Dreams Realized' promises to transform creative visions into digital reality, appealing to clients with ambitious creative projects." },
+    { id: 4, name: "VitalCore", slogan: "Strength from Within", trademarkStatus: "available", type: "combo", industry: "Fitness", style: "Bold", prompt: "'VitalCore' combines 'Vital' (essential energy) with 'Core' (central strength), emphasizing fundamental wellness. 'Strength from Within' focuses on internal empowerment and personal transformation, motivating individuals to discover their inner potential." },
+    { id: 5, name: "CloudVista", slogan: "Your Sky, Your Way", trademarkStatus: "registered", type: "combo", industry: "Cloud Services", style: "Professional", prompt: "'CloudVista' pairs 'Cloud' (computing) with 'Vista' (expansive view), suggesting broad technological horizons. 'Your Sky, Your Way' emphasizes customization and limitless possibilities, appealing to businesses seeking flexible cloud solutions." },
+    { id: 6, name: "FreshBite Co.", slogan: "Taste the Difference", trademarkStatus: "available", type: "combo", industry: "Food", style: "Friendly", prompt: "'FreshBite' immediately communicates freshness and appeal through 'Fresh' + 'Bite', with 'Co.' adding approachability. 'Taste the Difference' challenges customers to experience superior quality, positioning the brand as distinctly better than competitors." }
   ];
 
   return (
@@ -276,7 +277,7 @@ export default function BrandNamesSlogansProject() {
             
             {/* Actual content */}
             {showContent && brandData.map((brand) => (
-              <Card key={brand.id} className="group hover:shadow-lg transition-all duration-200">
+              <Card key={brand.id} className="group hover:shadow-lg transition-all duration-200 cursor-pointer" onClick={() => handleOpenPanel(brand)}>
                 <CardContent className="px-4 py-0">
                   <div className="space-y-4">
                     {/* Name */}
@@ -360,25 +361,28 @@ export default function BrandNamesSlogansProject() {
                   </div>
 
                   {/* Brand Information */}
-                  <div className="space-y-4 mb-6">
+                  <div className="space-y-6 mb-6">
                     <div>
-                      <h5 className="font-medium text-gray-900 mb-2">Prompt Used</h5>
-                      <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">{selectedBrandName.prompt}</p>
+                      <h5 className="font-medium text-gray-900 mb-3">How this name and slogan were created</h5>
+                      <p className="text-sm text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg">{selectedBrandName.prompt}</p>
                     </div>
                     
-                    <div>
-                      <h5 className="font-medium text-gray-900 mb-2">Industry</h5>
-                      <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">{selectedBrandName.industry}</span>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <h5 className="font-medium text-gray-900 mb-2">Industry</h5>
+                        <span className="inline-block px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">{selectedBrandName.industry}</span>
+                      </div>
+                      <div>
+                        <h5 className="font-medium text-gray-900 mb-2">Style</h5>
+                        <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">{selectedBrandName.style}</span>
+                      </div>
                     </div>
 
                     <div>
-                      <h5 className="font-medium text-gray-900 mb-2">Style</h5>
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">{selectedBrandName.style}</span>
-                    </div>
-
-                    <div>
-                      <h5 className="font-medium text-gray-900 mb-2">Type</h5>
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full capitalize">{selectedBrandName.type}</span>
+                      <h5 className="font-medium text-gray-900 mb-2">Trademark Status</h5>
+                      <span className={`inline-block px-3 py-1 text-sm rounded-full ${getTrademarkStatusColor(selectedBrandName.trademarkStatus)}`}>
+                        {getTrademarkStatusText(selectedBrandName.trademarkStatus)}
+                      </span>
                     </div>
                   </div>
 
