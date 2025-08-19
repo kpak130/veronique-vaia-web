@@ -39,6 +39,7 @@ export default function ImagesTextProject() {
     { url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=800&fit=crop", title: "Team Brainstorming", size: "1200x800px", prompt: "Dynamic brainstorming session with sticky notes and creative ideation process" }
   ];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleImageClick = (image: any) => {
     setSelectedImage(image);
     setShowImagePanel(true);
