@@ -3,15 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import { BRAND_COLORS } from "@/lib/theme";
 
 export default function Drive() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
       <header className="flex items-center justify-between px-4 py-2 bg-white border-b">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <div className="w-5 h-5 bg-yellow-400 rounded-full"></div>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
+              <div className="w-5 h-5 rounded-full" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
             </div>
             <span className="text-xl text-gray-700 font-medium">Vaia</span>
           </div>
@@ -38,7 +39,7 @@ export default function Drive() {
           <Button variant="ghost" size="icon">
             <Grid3X3 className="w-5 h-5" />
           </Button>
-          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.blue }}>
             <User className="w-5 h-5 text-white" />
           </div>
         </div>
@@ -55,7 +56,7 @@ export default function Drive() {
 
           <nav className="px-2">
             <div className="space-y-1">
-              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-blue-600 bg-blue-50 rounded-r-full hover:bg-blue-50">
+              <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 rounded-r-full" style={{ color: BRAND_COLORS.blue, backgroundColor: `${BRAND_COLORS.blue}15` }}>
                 <Home className="w-5 h-5" />
                 <span className="font-medium">Home</span>
               </Button>
@@ -116,7 +117,7 @@ export default function Drive() {
             </div>
 
             <div className="mb-8">
-              <h2 className="text-lg font-medium text-blue-600 mb-4 flex items-center">
+              <h2 className="text-lg font-medium mb-4 flex items-center" style={{ color: BRAND_COLORS.blue }}>
                 <span className="mr-2">✨</span>
                 Start creating
               </h2>
@@ -125,7 +126,7 @@ export default function Drive() {
                   <Card className="hover:shadow-md transition-shadow cursor-pointer">
                     <CardContent className="p-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
+                        <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.coral }}>
                           <span className="text-white text-xs font-bold">L</span>
                         </div>
                         <span className="text-gray-700 font-medium">Logos</span>
@@ -137,7 +138,7 @@ export default function Drive() {
                   <Card className="hover:shadow-md transition-shadow cursor-pointer">
                     <CardContent className="p-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-6 h-6 bg-purple-500 rounded flex items-center justify-center">
+                        <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
                           <span className="text-white text-xs font-bold">P</span>
                         </div>
                         <span className="text-gray-700 font-medium">Posters</span>
@@ -149,8 +150,8 @@ export default function Drive() {
                   <Card className="hover:shadow-md transition-shadow cursor-pointer">
                     <CardContent className="p-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">I</span>
+                        <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.lime }}>
+                          <span className="text-xs font-bold" style={{ color: BRAND_COLORS.darkBlue }}>I</span>
                         </div>
                         <span className="text-gray-700 font-medium">Marketing images / text</span>
                       </div>
@@ -160,7 +161,7 @@ export default function Drive() {
                 <Card className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-teal-500 rounded flex items-center justify-center">
+                      <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.blue }}>
                         <span className="text-white text-xs font-bold">M</span>
                       </div>
                       <span className="text-gray-700 font-medium">Physical mockups</span>
@@ -170,7 +171,7 @@ export default function Drive() {
                 <Card className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
+                      <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.coral }}>
                         <span className="text-white text-xs font-bold">C</span>
                       </div>
                       <span className="text-gray-700 font-medium">Company names</span>
@@ -190,7 +191,7 @@ export default function Drive() {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6 text-blue-500" />
+                        <Folder className="w-6 h-6" style={{ color: BRAND_COLORS.blue }} />
                         <div>
                           <div className="font-medium text-gray-900">Brand Assets</div>
                           <div className="text-sm text-gray-500">In My Vaia</div>
@@ -206,7 +207,7 @@ export default function Drive() {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6 text-blue-500" />
+                        <Folder className="w-6 h-6" style={{ color: BRAND_COLORS.blue }} />
                         <div>
                           <div className="font-medium text-gray-900">Marketing Materials</div>
                           <div className="text-sm text-gray-500">In Shared with me</div>
@@ -222,7 +223,7 @@ export default function Drive() {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <Folder className="w-6 h-6 text-blue-500" />
+                        <Folder className="w-6 h-6" style={{ color: BRAND_COLORS.blue }} />
                         <div>
                           <div className="font-medium text-gray-900">Product Mockups</div>
                           <div className="text-sm text-gray-500">In My Vaia</div>
@@ -263,7 +264,7 @@ export default function Drive() {
                     <div className="p-4 hover:bg-gray-50 cursor-pointer">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
+                          <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.coral }}>
                             <span className="text-white text-xs font-bold">L</span>
                           </div>
                           <span className="font-medium text-gray-900">Company Logo Draft</span>
@@ -281,7 +282,7 @@ export default function Drive() {
                     <div className="p-4 hover:bg-gray-50 cursor-pointer">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-purple-500 rounded flex items-center justify-center">
+                          <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
                             <span className="text-white text-xs font-bold">P</span>
                           </div>
                           <span className="font-medium text-gray-900">Product Launch Poster</span>
@@ -299,8 +300,8 @@ export default function Drive() {
                     <div className="p-4 hover:bg-gray-50 cursor-pointer">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">M</span>
+                          <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.lime }}>
+                            <span className="text-xs font-bold" style={{ color: BRAND_COLORS.darkBlue }}>M</span>
                           </div>
                           <span className="font-medium text-gray-900">T-Shirt Mockup Collection</span>
                         </div>

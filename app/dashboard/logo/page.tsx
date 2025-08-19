@@ -5,18 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import { BRAND_COLORS } from "@/lib/theme";
 
 export default function LogoProject() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
       <header className="flex items-center justify-between px-4 py-2 bg-white border-b">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <Link href="/dashboard" className="flex items-center space-x-2">
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </Link>
-            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <div className="w-5 h-5 bg-yellow-400 rounded-full"></div>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
+              <div className="w-5 h-5 rounded-full" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
             </div>
             <span className="text-xl text-gray-700 font-medium">Vaia</span>
           </div>
@@ -43,7 +44,7 @@ export default function LogoProject() {
           <Button variant="ghost" size="icon">
             <Grid3X3 className="w-5 h-5" />
           </Button>
-          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.blue }}>
             <User className="w-5 h-5 text-white" />
           </div>
         </div>
@@ -106,14 +107,14 @@ export default function LogoProject() {
                   Colors
                 </label>
                 <div className="grid grid-cols-4 gap-2">
-                  <div className="w-8 h-8 bg-blue-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-red-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-green-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-purple-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-orange-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-pink-500 rounded border-2 border-gray-300 cursor-pointer"></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.darkBlue }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.blue }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.coral }}></div>
                   <div className="w-8 h-8 bg-gray-800 rounded border-2 border-gray-300 cursor-pointer"></div>
                   <div className="w-8 h-8 bg-gray-400 rounded border-2 border-gray-300 cursor-pointer"></div>
+                  <div className="w-8 h-8 bg-white rounded border-2 border-gray-300 cursor-pointer"></div>
+                  <div className="w-8 h-8 bg-black rounded border-2 border-gray-300 cursor-pointer"></div>
                 </div>
               </div>
 
@@ -128,7 +129,7 @@ export default function LogoProject() {
                 />
               </div>
 
-              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              <Button className="w-full text-white" style={{ backgroundColor: BRAND_COLORS.blue }}>
                 Generate Logos
               </Button>
             </div>
@@ -147,8 +148,8 @@ export default function LogoProject() {
             {Array.from({ length: 12 }, (_, i) => (
               <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                 <CardContent className="p-4">
-                  <div className="aspect-square bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg flex items-center justify-center mb-3 relative overflow-hidden">
-                    <div className="text-white font-bold text-xl">
+                  <div className="aspect-square rounded-lg flex items-center justify-center mb-3 relative overflow-hidden" style={{ background: i % 4 === 0 ? `linear-gradient(135deg, ${BRAND_COLORS.blue} 0%, ${BRAND_COLORS.darkBlue} 100%)` : i % 4 === 1 ? `linear-gradient(135deg, ${BRAND_COLORS.lime} 0%, ${BRAND_COLORS.blue} 100%)` : i % 4 === 2 ? `linear-gradient(135deg, ${BRAND_COLORS.coral} 0%, ${BRAND_COLORS.darkBlue} 100%)` : BRAND_COLORS.darkBlue }}>
+                    <div className="font-bold text-xl" style={{ color: i % 4 === 2 ? 'white' : i % 4 === 1 ? BRAND_COLORS.darkBlue : BRAND_COLORS.lime }}>
                       {i % 3 === 0 ? 'VAIA' : i % 3 === 1 ? 'V' : '🚀'}
                     </div>
                     

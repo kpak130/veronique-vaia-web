@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { BRAND_COLORS } from "@/lib/theme";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,12 +23,12 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: `linear-gradient(135deg, ${BRAND_COLORS.lightGray} 0%, ${BRAND_COLORS.blue}20 100%)` }}>
       <div className="w-full max-w-md">
         {/* Logo and Brand */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <div className="w-10 h-10 bg-yellow-400 rounded-full"></div>
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
+            <div className="w-10 h-10 rounded-full" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900">Vaia</h1>
           <p className="text-gray-600 mt-2">Create amazing logos, posters, and mockups</p>
@@ -96,14 +97,15 @@ export default function SignIn() {
                   />
                   <span className="text-sm text-gray-600">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-blue-600 hover:underline">
+                <a href="#" className="text-sm hover:underline" style={{ color: BRAND_COLORS.blue }}>
                   Forgot password?
                 </a>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                className="w-full text-white"
+                style={{ backgroundColor: BRAND_COLORS.blue, hover: { backgroundColor: BRAND_COLORS.darkBlue } }}
               >
                 Sign In
               </Button>
@@ -152,7 +154,7 @@ export default function SignIn() {
 
             <p className="mt-6 text-center text-sm text-gray-600">
               Don&apos;t have an account?{" "}
-              <a href="#" className="text-blue-600 hover:underline font-medium">
+              <a href="#" className="hover:underline font-medium" style={{ color: BRAND_COLORS.blue }}>
                 Sign up
               </a>
             </p>

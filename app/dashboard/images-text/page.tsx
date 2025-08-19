@@ -6,20 +6,21 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { useState } from "react";
+import { BRAND_COLORS } from "@/lib/theme";
 
 export default function ImagesTextProject() {
   const [activeTab, setActiveTab] = useState<'images' | 'text'>('images');
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
       <header className="flex items-center justify-between px-4 py-2 bg-white border-b">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <Link href="/dashboard" className="flex items-center space-x-2">
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </Link>
-            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <div className="w-5 h-5 bg-yellow-400 rounded-full"></div>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
+              <div className="w-5 h-5 rounded-full" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
             </div>
             <span className="text-xl text-gray-700 font-medium">Vaia</span>
           </div>
@@ -46,7 +47,7 @@ export default function ImagesTextProject() {
           <Button variant="ghost" size="icon">
             <Grid3X3 className="w-5 h-5" />
           </Button>
-          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.blue }}>
             <User className="w-5 h-5 text-white" />
           </div>
         </div>
@@ -54,41 +55,63 @@ export default function ImagesTextProject() {
 
       <div className="flex h-screen">
         {/* Left Panel - Input Controls */}
-        <aside className="w-80 bg-white border-r p-6 overflow-y-auto">
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Marketing Images / Text Generator</h2>
-              <p className="text-sm text-gray-600 mb-6">Create compelling marketing materials with images and text</p>
-            </div>
+        <aside className="w-80 bg-white border-r flex flex-col relative">
+          <div className="flex-1 p-6 overflow-y-auto pb-24">
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Title
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Enter your marketing title"
+                    className="w-full"
+                  />
+                </div>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Description
-                </label>
-                <textarea
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  rows={4}
-                  placeholder="Describe your marketing content in detail..."
-                />
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Subtitle
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Enter your subtitle"
+                    className="w-full"
+                  />
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Upload Files
-                </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors cursor-pointer">
-                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600 mb-1">Drag and drop files here</p>
-                  <p className="text-xs text-gray-500">or click to browse</p>
-                  <p className="text-xs text-gray-400 mt-2">PNG, JPG, PDF up to 10MB</p>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Description
+                  </label>
+                  <textarea
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    rows={4}
+                    placeholder="Describe your marketing content in detail..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Upload Files
+                  </label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors cursor-pointer">
+                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                    <p className="text-sm text-gray-600 mb-1">Drag and drop files here</p>
+                    <p className="text-xs text-gray-500">or click to browse</p>
+                    <p className="text-xs text-gray-400 mt-2">PNG, JPG, PDF up to 10MB</p>
+                  </div>
                 </div>
               </div>
-
-              <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
-                Generate Content
-              </Button>
             </div>
+          </div>
+          
+          {/* Fixed bottom button */}
+          <div className="absolute bottom-0 left-0 right-0 px-6 pt-6 pb-12 bg-white border-t">
+            <Button className="w-full h-14 text-lg font-medium" style={{ backgroundColor: BRAND_COLORS.lime, color: BRAND_COLORS.darkBlue }}>
+              Generate Content
+            </Button>
           </div>
         </aside>
 
@@ -100,22 +123,22 @@ export default function ImagesTextProject() {
               <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
                 <button
                   onClick={() => setActiveTab('images')}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                    activeTab === 'images'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                  style={{
+                    backgroundColor: activeTab === 'images' ? 'white' : 'transparent',
+                    color: activeTab === 'images' ? BRAND_COLORS.darkBlue : '#6B7280'
+                  }}
                 >
                   <ImageIcon className="w-4 h-4 inline mr-2" />
                   Images
                 </button>
                 <button
                   onClick={() => setActiveTab('text')}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                    activeTab === 'text'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all`}
+                  style={{
+                    backgroundColor: activeTab === 'text' ? 'white' : 'transparent',
+                    color: activeTab === 'text' ? BRAND_COLORS.darkBlue : '#6B7280'
+                  }}
                 >
                   <FileText className="w-4 h-4 inline mr-2" />
                   Text
@@ -191,8 +214,8 @@ export default function ImagesTextProject() {
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <FileText className="w-4 h-4 text-blue-600" />
+                        <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${BRAND_COLORS.blue}20` }}>
+                          <FileText className="w-4 h-4" style={{ color: BRAND_COLORS.blue }} />
                         </div>
                         <div>
                           <h3 className="font-semibold text-gray-900">

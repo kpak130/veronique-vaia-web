@@ -5,18 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import { BRAND_COLORS } from "@/lib/theme";
 
 export default function PostersProject() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
       <header className="flex items-center justify-between px-4 py-2 bg-white border-b">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <Link href="/dashboard" className="flex items-center space-x-2">
               <ArrowLeft className="w-5 h-5 text-gray-600" />
             </Link>
-            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <div className="w-5 h-5 bg-yellow-400 rounded-full"></div>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
+              <div className="w-5 h-5 rounded-full" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
             </div>
             <span className="text-xl text-gray-700 font-medium">Vaia</span>
           </div>
@@ -43,7 +44,7 @@ export default function PostersProject() {
           <Button variant="ghost" size="icon">
             <Grid3X3 className="w-5 h-5" />
           </Button>
-          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.blue }}>
             <User className="w-5 h-5 text-white" />
           </div>
         </div>
@@ -159,14 +160,14 @@ export default function PostersProject() {
                   Color Scheme
                 </label>
                 <div className="grid grid-cols-4 gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-gray-800 to-gray-600 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-rose-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded border-2 border-gray-300 cursor-pointer"></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ background: `linear-gradient(135deg, ${BRAND_COLORS.blue} 0%, ${BRAND_COLORS.darkBlue} 100%)` }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ background: `linear-gradient(135deg, ${BRAND_COLORS.coral} 0%, ${BRAND_COLORS.darkBlue} 100%)` }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ background: `linear-gradient(135deg, ${BRAND_COLORS.lime} 0%, ${BRAND_COLORS.blue} 100%)` }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ background: `linear-gradient(135deg, ${BRAND_COLORS.darkBlue} 0%, ${BRAND_COLORS.coral} 100%)` }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.darkBlue }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.blue }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
+                  <div className="w-8 h-8 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.coral }}></div>
                 </div>
               </div>
 
@@ -181,7 +182,7 @@ export default function PostersProject() {
                 />
               </div>
 
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+              <Button className="w-full text-white" style={{ backgroundColor: BRAND_COLORS.darkBlue }}>
                 Generate Posters
               </Button>
             </div>
@@ -200,15 +201,15 @@ export default function PostersProject() {
             {Array.from({ length: 9 }, (_, i) => (
               <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                 <CardContent className="p-4">
-                  <div className="aspect-[3/4] bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 rounded-lg flex flex-col items-center justify-center mb-3 relative overflow-hidden text-white">
+                  <div className="aspect-[3/4] rounded-lg flex flex-col items-center justify-center mb-3 relative overflow-hidden" style={{ background: i % 3 === 0 ? `linear-gradient(135deg, ${BRAND_COLORS.coral} 0%, ${BRAND_COLORS.darkBlue} 100%)` : i % 3 === 1 ? `linear-gradient(135deg, ${BRAND_COLORS.blue} 0%, ${BRAND_COLORS.lime} 100%)` : `linear-gradient(135deg, ${BRAND_COLORS.darkBlue} 0%, ${BRAND_COLORS.blue} 100%)` }}>
                     <div className="text-center p-4">
-                      <h3 className="font-bold text-lg mb-2">
+                      <h3 className="font-bold text-lg mb-2" style={{ color: i % 3 === 1 ? BRAND_COLORS.darkBlue : 'white' }}>
                         {i % 3 === 0 ? 'MUSIC FESTIVAL' : i % 3 === 1 ? 'ART EXHIBITION' : 'CONFERENCE 2024'}
                       </h3>
-                      <p className="text-sm opacity-90 mb-3">
+                      <p className="text-sm mb-3" style={{ color: i % 3 === 1 ? BRAND_COLORS.darkBlue : 'white', opacity: 0.9 }}>
                         {i % 3 === 0 ? 'Summer Vibes 2024' : i % 3 === 1 ? 'Modern Art Gallery' : 'Tech Innovation Summit'}
                       </p>
-                      <div className="text-xs opacity-80">
+                      <div className="text-xs" style={{ color: i % 3 === 1 ? BRAND_COLORS.darkBlue : 'white', opacity: 0.8 }}>
                         <p>📅 {i % 3 === 0 ? 'July 15-17' : i % 3 === 1 ? 'Aug 20-25' : 'Sep 10-12'}</p>
                         <p>📍 {i % 3 === 0 ? 'Central Park' : i % 3 === 1 ? 'Downtown Gallery' : 'Convention Center'}</p>
                       </div>
