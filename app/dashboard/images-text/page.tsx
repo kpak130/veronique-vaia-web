@@ -266,11 +266,6 @@ export default function ImagesTextProject() {
                 </button>
               </div>
             </div>
-            <p className="text-gray-600">
-              {activeTab === 'images' 
-                ? 'Click on any image to customize or download' 
-                : 'Click on any text to edit or copy'}
-            </p>
           </div>
 
           {/* Images Tab Content */}
