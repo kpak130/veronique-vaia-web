@@ -268,16 +268,18 @@ export default function Drive() {
                     </div>
                   </CardContent>
                 </Card>
-                <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.coral }}>
-                        <span className="text-white text-xs font-bold">C</span>
+                <Link href="/dashboard/brand-names-slogans">
+                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.coral }}>
+                          <span className="text-white text-xs font-bold">C</span>
+                        </div>
+                        <span className="text-gray-700 font-medium">Brand names & slogans</span>
                       </div>
-                      <span className="text-gray-700 font-medium">Brand names & slogans</span>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
               </div>
             </div>
 
