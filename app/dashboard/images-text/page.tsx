@@ -519,16 +519,15 @@ export default function ImagesTextProject() {
         </main>
 
         {/* Image Detail Sliding Panel */}
-        {showImagePanel && (
-          <>
-            {/* Backdrop */}
-            <div 
-              className="fixed inset-0 bg-black bg-opacity-20 z-50 transition-opacity"
-              onClick={handleClosePanel}
-            />
-            
-            {/* Sliding Panel */}
-            <div className={`fixed top-0 right-0 h-full w-[500px] bg-white shadow-xl z-50 transform transition-transform duration-300 ${showImagePanel ? 'translate-x-0' : 'translate-x-full'}`}>
+        <>
+          {/* Backdrop */}
+          <div 
+            className={`fixed inset-0 bg-black/60 z-60 transition-opacity duration-300 ${showImagePanel ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            onClick={handleClosePanel}
+          />
+          
+          {/* Sliding Panel */}
+          <div className={`fixed top-0 right-0 h-full w-[500px] bg-white shadow-xl z-70 transform transition-all duration-300 ease-in-out ${showImagePanel ? 'translate-x-0' : 'translate-x-full'}`}>
               <div className="flex flex-col h-full">
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b">
@@ -603,8 +602,7 @@ export default function ImagesTextProject() {
                 </div>
               </div>
             </div>
-          </>
-        )}
+        </>
       </div>
     </div>
   );
