@@ -128,7 +128,7 @@ export default function Drive() {
                         <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
                           <span className="text-white text-xs font-bold">L</span>
                         </div>
-                        <span className="text-gray-700 font-medium">Logo Project</span>
+                        <span className="text-gray-700 font-medium">Logos</span>
                       </div>
                     </CardContent>
                   </Card>
@@ -167,15 +167,13 @@ export default function Drive() {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
-              <div className="mt-4">
-                <Card className="hover:shadow-md transition-shadow cursor-pointer inline-block">
+                <Card className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
                         <span className="text-white text-xs font-bold">C</span>
                       </div>
-                      <span className="text-gray-700 font-medium">Generate company names</span>
+                      <span className="text-gray-700 font-medium">Company names</span>
                     </div>
                   </CardContent>
                 </Card>
