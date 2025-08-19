@@ -198,6 +198,12 @@ export default function AssetsPage() {
                     <span>Keywords</span>
                   </Button>
                 </Link>
+                <Link href="/dashboard/brand-kits" className="block">
+                  <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
+                    <Palette className="w-5 h-5" />
+                    <span>Brand Kits</span>
+                  </Button>
+                </Link>
               </div>
 
               {/* Collaboration */}

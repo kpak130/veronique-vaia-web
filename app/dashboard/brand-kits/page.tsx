@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Edit3, Copy, Trash2, Tag, Calendar, MoreVertical, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database, Globe, History, Lock, Sparkles, Image, Palette, Lightbulb, MessageCircle, Cloud } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, Plus, Edit3, Copy, MoreVertical, Home, Activity, Users, Folder, Share, Clock, Star, Trash, Database, Globe, History, Lock, Sparkles, Image, Palette, Lightbulb, MessageCircle, Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,83 +8,64 @@ import Link from "next/link";
 import { useState } from "react";
 import { BRAND_COLORS } from "@/lib/theme";
 
-export default function KeywordsPage() {
+export default function BrandKitsPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const keywordSets = [
+  const brandKits = [
     {
       id: 1,
-      name: "Tech Startup Keywords",
-      description: "Keywords for technology and startup related content",
-      keywords: ["innovation", "startup", "technology", "digital", "AI", "SaaS", "cloud", "disruption", "scalable", "entrepreneur"],
-      count: 10,
-      lastUpdated: "2 days ago",
-      category: "Business"
+      name: "Tech Startup Brand",
+      colors: [BRAND_COLORS.blue, BRAND_COLORS.darkBlue, "#FFFFFF", "#F8F9FA"],
+      fonts: ["Inter", "Roboto"],
+      count: 6,
+      lastUpdated: "2 days ago"
     },
     {
       id: 2,
-      name: "Food & Restaurant",
-      description: "Keywords for food industry and restaurant marketing",
-      keywords: ["delicious", "fresh", "organic", "gourmet", "authentic", "homemade", "seasonal", "local", "artisan", "culinary"],
-      count: 10,
-      lastUpdated: "1 week ago",
-      category: "Food"
+      name: "Creative Agency Brand",
+      colors: [BRAND_COLORS.lime, BRAND_COLORS.coral, BRAND_COLORS.darkBlue, "#FFFFFF"],
+      fonts: ["Poppins", "Open Sans"],
+      count: 6,
+      lastUpdated: "1 week ago"
     },
     {
       id: 3,
-      name: "Health & Wellness",
-      description: "Keywords for health and wellness content",
-      keywords: ["healthy", "wellness", "fitness", "natural", "mindful", "balance", "energy", "vitality", "strength", "nutrition"],
-      count: 10,
-      lastUpdated: "3 days ago",
-      category: "Health"
+      name: "Corporate Professional",
+      colors: [BRAND_COLORS.darkBlue, "#CCCCCC", "#FFFFFF", "#000000"],
+      fonts: ["Helvetica", "Arial"],
+      count: 6,
+      lastUpdated: "3 days ago"
     },
     {
       id: 4,
-      name: "Creative Design",
-      description: "Keywords for creative and design projects",
-      keywords: ["creative", "design", "artistic", "visual", "modern", "elegant", "bold", "minimalist", "aesthetic", "stylish"],
-      count: 10,
-      lastUpdated: "5 days ago",
-      category: "Design"
+      name: "Modern Minimalist",
+      colors: [BRAND_COLORS.blue, "#F5F5F5", "#FFFFFF", "#333333"],
+      fonts: ["Montserrat", "Lato"],
+      count: 6,
+      lastUpdated: "5 days ago"
     },
     {
       id: 5,
-      name: "E-commerce Sales",
-      description: "Keywords for online sales and marketing",
-      keywords: ["sale", "discount", "premium", "quality", "bestseller", "limited", "exclusive", "trending", "popular", "recommended"],
-      count: 10,
-      lastUpdated: "1 day ago",
-      category: "Marketing"
+      name: "Vibrant Creative",
+      colors: [BRAND_COLORS.coral, BRAND_COLORS.lime, "#FF8C42", "#6A4C93"],
+      fonts: ["Nunito", "Source Sans Pro"],
+      count: 6,
+      lastUpdated: "1 day ago"
     },
     {
       id: 6,
-      name: "Travel & Adventure",
-      description: "Keywords for travel and adventure content",
-      keywords: ["adventure", "explore", "journey", "destination", "wanderlust", "discovery", "escape", "exotic", "breathtaking", "unforgettable"],
-      count: 10,
-      lastUpdated: "1 week ago",
-      category: "Travel"
+      name: "Elegant Classic",
+      colors: [BRAND_COLORS.darkBlue, "#D4AF37", "#FFFFFF", "#2C2C2C"],
+      fonts: ["Playfair Display", "Merriweather"],
+      count: 6,
+      lastUpdated: "1 week ago"
     }
   ];
 
-  const filteredKeywordSets = keywordSets.filter(set => 
-    set.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    set.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    set.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBrandKits = brandKits.filter(kit => 
+    kit.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    kit.fonts.some(font => font.toLowerCase().includes(searchTerm.toLowerCase()))
   );
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'Business': return { bg: BRAND_COLORS.blue, text: 'white' };
-      case 'Food': return { bg: BRAND_COLORS.coral, text: 'white' };
-      case 'Health': return { bg: BRAND_COLORS.lime, text: BRAND_COLORS.darkBlue };
-      case 'Design': return { bg: BRAND_COLORS.darkBlue, text: 'white' };
-      case 'Marketing': return { bg: BRAND_COLORS.coral, text: 'white' };
-      case 'Travel': return { bg: BRAND_COLORS.blue, text: 'white' };
-      default: return { bg: BRAND_COLORS.blue, text: 'white' };
-    }
-  };
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
@@ -103,7 +84,7 @@ export default function KeywordsPage() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <Input
               type="text"
-              placeholder="Search keyword sets..."
+              placeholder="Search brand kits..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-gray-100 border-none focus:bg-white focus:shadow-md transition-all"
@@ -179,16 +160,16 @@ export default function KeywordsPage() {
                     <span>Assets</span>
                   </Button>
                 </Link>
-                <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 rounded-r-full" style={{ color: BRAND_COLORS.blue, backgroundColor: `${BRAND_COLORS.blue}15` }}>
-                  <Search className="w-5 h-5" />
-                  <span className="font-medium">Keywords</span>
-                </Button>
-                <Link href="/dashboard/brand-kits" className="block">
+                <Link href="/dashboard/keywords" className="block">
                   <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 text-gray-700 rounded-r-full">
-                    <Palette className="w-5 h-5" />
-                    <span>Brand Kits</span>
+                    <Search className="w-5 h-5" />
+                    <span>Keywords</span>
                   </Button>
                 </Link>
+                <Button variant="ghost" className="flex items-center space-x-3 w-full justify-start px-3 py-2 rounded-r-full" style={{ color: BRAND_COLORS.blue, backgroundColor: `${BRAND_COLORS.blue}15` }}>
+                  <Palette className="w-5 h-5" />
+                  <span className="font-medium">Brand Kits</span>
+                </Button>
               </div>
 
               {/* Collaboration */}
@@ -234,40 +215,56 @@ export default function KeywordsPage() {
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Keyword Sets</h1>
-            <p className="text-gray-600">Manage your collection of keyword sets for different projects and themes</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Brand Kits</h1>
+            <p className="text-gray-600">Manage your collection of brand kits with colors and fonts for different projects</p>
           </div>
 
-          {/* Add New Keyword Set */}
+          {/* Add New Brand Kit */}
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Plus className="w-5 h-5" />
-                <span>Create New Keyword Set</span>
+                <span>Create New Brand Kit</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Set Name
+                  Kit Name
                 </label>
                 <Input
                   type="text"
-                  placeholder="Enter keyword set name"
+                  placeholder="Enter brand kit name"
                   className="w-full"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Keywords
+                  Colors
                 </label>
-                <textarea
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  rows={4}
-                  placeholder="Enter keywords separated by commas (e.g., creative, design, modern, elegant, bold, minimalist)"
+                <div className="flex space-x-3 mb-2">
+                  <div className="w-12 h-12 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.darkBlue }}></div>
+                  <div className="w-12 h-12 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.blue }}></div>
+                  <div className="w-12 h-12 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.lime }}></div>
+                  <div className="w-12 h-12 rounded border-2 border-gray-300 cursor-pointer" style={{ backgroundColor: BRAND_COLORS.coral }}></div>
+                  <div className="w-12 h-12 bg-white rounded border-2 border-gray-300 cursor-pointer"></div>
+                  <div className="w-12 h-12 bg-black rounded border-2 border-gray-300 cursor-pointer"></div>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Click to select colors for your brand kit. You can choose up to 6 colors.
+                </p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Fonts
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Enter font names separated by commas (e.g., Inter, Roboto, Poppins)"
+                  className="w-full"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Separate keywords with commas. They will be automatically trimmed and formatted.
+                  Separate font names with commas. Include both primary and secondary fonts.
                 </p>
               </div>
               <div className="flex justify-end">
@@ -276,40 +273,56 @@ export default function KeywordsPage() {
                   style={{ backgroundColor: BRAND_COLORS.blue }}
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Create Keyword Set
+                  Create Brand Kit
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          {/* Keyword Sets List - One per row */}
+          {/* Brand Kits List - One per row */}
           <div className="space-y-2">
-            {filteredKeywordSets.map((keywordSet) => {
+            {filteredBrandKits.map((brandKit) => {
               return (
-                <Card key={keywordSet.id} className="hover:shadow-lg transition-shadow cursor-pointer">
+                <Card key={brandKit.id} className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       {/* Left side - Main info */}
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-4">
-                          <h3 className="text-base font-medium text-gray-900">{keywordSet.name}</h3>
+                          <h3 className="text-base font-medium text-gray-900">{brandKit.name}</h3>
                         </div>
                         
-                        {/* Keywords Preview */}
-                        <div className="flex flex-wrap gap-1">
-                          {keywordSet.keywords.slice(0, 12).map((keyword, index) => (
-                            <span 
-                              key={index}
-                              className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full"
-                            >
-                              {keyword}
-                            </span>
-                          ))}
-                          {keywordSet.keywords.length > 12 && (
-                            <span className="px-3 py-1 text-sm bg-gray-200 text-gray-600 rounded-full">
-                              +{keywordSet.keywords.length - 12} more
-                            </span>
-                          )}
+                        {/* Colors and Fonts Preview */}
+                        <div className="space-y-3">
+                          {/* Colors */}
+                          <div>
+                            <span className="text-xs text-gray-500 uppercase tracking-wide mb-2 block">Colors</span>
+                            <div className="flex space-x-2">
+                              {brandKit.colors.map((color, index) => (
+                                <div 
+                                  key={index}
+                                  className="w-8 h-8 rounded border border-gray-200 shadow-sm"
+                                  style={{ backgroundColor: color }}
+                                ></div>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          {/* Fonts */}
+                          <div>
+                            <span className="text-xs text-gray-500 uppercase tracking-wide mb-2 block">Fonts</span>
+                            <div className="flex flex-wrap gap-2">
+                              {brandKit.fonts.map((font, index) => (
+                                <span 
+                                  key={index}
+                                  className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full"
+                                  style={{ fontFamily: font }}
+                                >
+                                  {font}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -335,14 +348,14 @@ export default function KeywordsPage() {
           </div>
 
           {/* Empty State */}
-          {filteredKeywordSets.length === 0 && (
+          {filteredBrandKits.length === 0 && (
             <div className="text-center py-12">
-              <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No keyword sets found</h3>
-              <p className="text-gray-500 mb-4">Try adjusting your search terms or create a new keyword set.</p>
+              <Palette className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No brand kits found</h3>
+              <p className="text-gray-500 mb-4">Try adjusting your search terms or create a new brand kit.</p>
               <Button style={{ backgroundColor: BRAND_COLORS.blue }}>
                 <Plus className="w-4 h-4 mr-2" />
-                Create New Keyword Set
+                Create New Brand Kit
               </Button>
             </div>
           )}
