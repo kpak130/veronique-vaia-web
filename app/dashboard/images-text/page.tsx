@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon, Upload } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon, Upload, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +10,19 @@ import { BRAND_COLORS } from "@/lib/theme";
 
 export default function ImagesTextProject() {
   const [activeTab, setActiveTab] = useState<'images' | 'text'>('images');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+
+  const handleGenerateContent = () => {
+    setIsGenerating(true);
+    setShowContent(false);
+    
+    // After 10 seconds, show the content
+    setTimeout(() => {
+      setIsGenerating(false);
+      setShowContent(true);
+    }, 10000);
+  };
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND_COLORS.lightGray }}>
@@ -109,8 +122,20 @@ export default function ImagesTextProject() {
           
           {/* Fixed bottom button */}
           <div className="absolute bottom-0 left-0 right-0 px-6 pt-6 pb-6 bg-white border-t">
-            <Button className="w-full h-14 text-lg font-medium" style={{ backgroundColor: BRAND_COLORS.lime, color: BRAND_COLORS.darkBlue }}>
-              Generate Content
+            <Button 
+              className="w-full h-14 text-lg font-medium" 
+              style={{ backgroundColor: BRAND_COLORS.lime, color: BRAND_COLORS.darkBlue }}
+              onClick={handleGenerateContent}
+              disabled={isGenerating}
+            >
+              {isGenerating ? (
+                <>
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                'Generate Content'
+              )}
             </Button>
           </div>
         </aside>
@@ -155,7 +180,33 @@ export default function ImagesTextProject() {
           {/* Images Tab Content */}
           {activeTab === 'images' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
+              {/* Loading cards */}
+              {isGenerating && (
+                <>
+                  {Array.from({ length: 10 }, (_, i) => (
+                    <Card key={`loading-${i}`} className="animate-pulse">
+                      <CardContent className="p-4">
+                        <div className="aspect-square rounded-lg mb-3 bg-gray-100 flex items-center justify-center">
+                          <Loader2 className="w-8 h-8 animate-spin" style={{ color: BRAND_COLORS.blue }} />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="h-4 bg-gray-200 rounded w-24 mb-1"></div>
+                            <div className="h-3 bg-gray-100 rounded w-16"></div>
+                          </div>
+                          <div className="flex space-x-1">
+                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </>
+              )}
+              
+              {/* Actual content */}
+              {showContent && ([
                 { url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", title: "Business Meeting", size: "1200x800px" },
                 { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop", title: "Team Collaboration", size: "1080x1080px" },
                 { url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop", title: "Office Space", size: "800x600px" },
@@ -165,7 +216,7 @@ export default function ImagesTextProject() {
                 { url: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=800&fit=crop", title: "Strategy Session", size: "1200x800px" },
                 { url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=800&fit=crop", title: "Team Success", size: "1080x1080px" },
                 { url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=600&fit=crop", title: "Modern Workspace", size: "800x600px" }
-              ].map((image, i) => (
+              ]).map((image, i) => (
                 <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                   <CardContent className="p-4">
                     <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
@@ -209,7 +260,41 @@ export default function ImagesTextProject() {
           {/* Text Tab Content */}
           {activeTab === 'text' && (
             <div className="space-y-4">
-              {Array.from({ length: 6 }, (_, i) => (
+              {/* Loading cards for text */}
+              {isGenerating && (
+                <>
+                  {Array.from({ length: 10 }, (_, i) => (
+                    <Card key={`loading-text-${i}`} className="animate-pulse">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-gray-200 rounded-lg"></div>
+                            <div>
+                              <div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+                              <div className="h-3 bg-gray-100 rounded w-24"></div>
+                            </div>
+                          </div>
+                          <div className="flex space-x-1">
+                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                            <div className="w-6 h-6 bg-gray-100 rounded"></div>
+                          </div>
+                        </div>
+                        <div className="space-y-2 mb-4">
+                          <div className="h-4 bg-gray-100 rounded w-full"></div>
+                          <div className="h-4 bg-gray-100 rounded w-5/6"></div>
+                          <div className="h-4 bg-gray-100 rounded w-4/6"></div>
+                        </div>
+                        <div className="flex items-center justify-center">
+                          <Loader2 className="w-6 h-6 animate-spin" style={{ color: BRAND_COLORS.blue }} />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </>
+              )}
+              
+              {/* Actual text content */}
+              {showContent && Array.from({ length: 6 }).map((_, i) => (
                 <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
