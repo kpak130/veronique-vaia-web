@@ -225,7 +225,7 @@ export default function Drive() {
                       <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: BRAND_COLORS.coral }}>
                         <span className="text-white text-xs font-bold">C</span>
                       </div>
-                      <span className="text-gray-700 font-medium">Company names</span>
+                      <span className="text-gray-700 font-medium">Brand names & slogans</span>
                     </div>
                   </CardContent>
                 </Card>
