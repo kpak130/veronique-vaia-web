@@ -104,8 +104,8 @@ export default function SignIn() {
 
               <Button
                 type="submit"
-                className="w-full text-white"
-                style={{ backgroundColor: BRAND_COLORS.blue, hover: { backgroundColor: BRAND_COLORS.darkBlue } }}
+                className="w-full text-white hover:opacity-90"
+                style={{ backgroundColor: BRAND_COLORS.blue }}
               >
                 Sign In
               </Button>
