@@ -64,28 +64,6 @@ export default function ImagesTextProject() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Title
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Enter your marketing title"
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Subtitle
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Enter your subtitle"
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Description
                 </label>
                 <textarea
@@ -154,22 +132,28 @@ export default function ImagesTextProject() {
           {/* Images Tab Content */}
           {activeTab === 'images' && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Array.from({ length: 9 }, (_, i) => (
+              {[
+                { url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", title: "Business Meeting", size: "1200x800px" },
+                { url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop", title: "Team Collaboration", size: "1080x1080px" },
+                { url: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop", title: "Office Space", size: "800x600px" },
+                { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=800&fit=crop", title: "Data Analytics", size: "1200x800px" },
+                { url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=800&fit=crop", title: "Creative Workshop", size: "1080x1080px" },
+                { url: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop", title: "Remote Work", size: "800x600px" },
+                { url: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=800&fit=crop", title: "Strategy Session", size: "1200x800px" },
+                { url: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=800&fit=crop", title: "Team Success", size: "1080x1080px" },
+                { url: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=600&fit=crop", title: "Modern Workspace", size: "800x600px" }
+              ].map((image, i) => (
                 <Card key={i} className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
                   <CardContent className="p-4">
-                    <div className="aspect-square bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 rounded-lg flex flex-col items-center justify-center mb-3 relative overflow-hidden text-white">
-                      <div className="text-center p-4">
-                        <ImageIcon className="w-8 h-8 mb-2 mx-auto opacity-80" />
-                        <h3 className="font-bold text-sm mb-1">
-                          {i % 3 === 0 ? 'Marketing Image' : i % 3 === 1 ? 'Social Media Post' : 'Product Visual'}
-                        </h3>
-                        <p className="text-xs opacity-70">
-                          {i % 3 === 0 ? '1200x800px' : i % 3 === 1 ? '1080x1080px' : '800x600px'}
-                        </p>
-                      </div>
+                    <div className="aspect-square rounded-lg mb-3 relative overflow-hidden bg-gray-100">
+                      <img 
+                        src={image.url}
+                        alt={image.title}
+                        className="w-full h-full object-cover"
+                      />
                       
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
                         <div className="flex space-x-2">
                           <Button size="sm" variant="secondary" className="text-xs">
                             <Download className="w-3 h-3 mr-1" />
@@ -180,7 +164,10 @@ export default function ImagesTextProject() {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Image {i + 1}</span>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{image.title}</p>
+                        <p className="text-xs text-gray-500">{image.size}</p>
+                      </div>
                       <div className="flex space-x-1">
                         <Button variant="ghost" size="icon" className="w-6 h-6">
                           <Heart className="w-3 h-3" />
