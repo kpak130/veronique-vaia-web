@@ -152,7 +152,7 @@ export default function Drive() {
                         <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
                           <span className="text-white text-xs font-bold">I</span>
                         </div>
-                        <span className="text-gray-700 font-medium">Images / Text</span>
+                        <span className="text-gray-700 font-medium">Marketing images / text</span>
                       </div>
                     </CardContent>
                   </Card>

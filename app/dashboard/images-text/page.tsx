@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,7 +30,7 @@ export default function ImagesTextProject() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <Input
               type="text"
-              placeholder="Search images & text..."
+              placeholder="Search marketing content..."
               className="w-full pl-10 pr-4 py-2 bg-gray-100 border-none focus:bg-white focus:shadow-md transition-all"
             />
           </div>
@@ -57,89 +57,54 @@ export default function ImagesTextProject() {
         <aside className="w-80 bg-white border-r p-6 overflow-y-auto">
           <div className="space-y-6">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Images / Text Generator</h2>
-              <p className="text-sm text-gray-600 mb-6">Create stunning images and compelling text content</p>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Marketing Images / Text Generator</h2>
+              <p className="text-sm text-gray-600 mb-6">Create compelling marketing materials with images and text</p>
             </div>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Content Type
-                </label>
-                <select className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                  <option value="">Select content type</option>
-                  <option value="marketing">Marketing Content</option>
-                  <option value="social">Social Media</option>
-                  <option value="blog">Blog Post</option>
-                  <option value="product">Product Description</option>
-                  <option value="newsletter">Newsletter</option>
-                  <option value="advertisement">Advertisement</option>
-                  <option value="announcement">Announcement</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Topic / Subject
+                  Title
                 </label>
                 <Input
                   type="text"
-                  placeholder="Enter your topic or subject"
+                  placeholder="Enter your marketing title"
                   className="w-full"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Target Audience
+                  Subtitle
                 </label>
                 <Input
                   type="text"
-                  placeholder="Who is your target audience?"
+                  placeholder="Enter your subtitle"
                   className="w-full"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Style & Tone
-                </label>
-                <div className="grid grid-cols-2 gap-2">
-                  <Button variant="outline" className="justify-start">Professional</Button>
-                  <Button variant="outline" className="justify-start">Casual</Button>
-                  <Button variant="outline" className="justify-start">Creative</Button>
-                  <Button variant="outline" className="justify-start">Friendly</Button>
-                  <Button variant="outline" className="justify-start">Formal</Button>
-                  <Button variant="outline" className="justify-start">Playful</Button>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Color Theme
-                </label>
-                <div className="grid grid-cols-4 gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-gray-800 to-gray-600 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-rose-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded border-2 border-gray-300 cursor-pointer"></div>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Additional Requirements
+                  Description
                 </label>
                 <textarea
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  rows={3}
-                  placeholder="Any specific requirements, keywords, or style preferences..."
+                  rows={4}
+                  placeholder="Describe your marketing content in detail..."
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Upload Files
+                </label>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors cursor-pointer">
+                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600 mb-1">Drag and drop files here</p>
+                  <p className="text-xs text-gray-500">or click to browse</p>
+                  <p className="text-xs text-gray-400 mt-2">PNG, JPG, PDF up to 10MB</p>
+                </div>
               </div>
 
               <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
@@ -275,8 +240,8 @@ export default function ImagesTextProject() {
                         <>
                           <p className="mb-3">📝 <strong>The Future of Digital Innovation</strong></p>
                           <p className="text-sm leading-relaxed">
-                            In today's rapidly evolving digital landscape, staying ahead means embracing change and 
-                            leveraging technology to create meaningful connections with your audience. Here's how to get started...
+                            In today&apos;s rapidly evolving digital landscape, staying ahead means embracing change and 
+                            leveraging technology to create meaningful connections with your audience. Here&apos;s how to get started...
                           </p>
                         </>
                       )}
