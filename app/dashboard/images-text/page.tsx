@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon, Upload, Loader2, X, Copy } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Download, Heart, Share, FileText, ImageIcon, Upload, Loader2, X, Copy, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -25,6 +25,47 @@ export default function ImagesTextProject() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [showImagePanel, setShowImagePanel] = useState(false);
+  const [selectedBrandKit, setSelectedBrandKit] = useState("");
+  const [selectedKeywordSet, setSelectedKeywordSet] = useState("");
+  const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
+
+  // Sample data for dropdowns
+  const brandKits = [
+    { id: "1", name: "Tech Startup Brand" },
+    { id: "2", name: "Creative Agency Brand" },
+    { id: "3", name: "Corporate Professional" },
+    { id: "4", name: "Modern Minimalist" },
+    { id: "5", name: "Vibrant Creative" },
+    { id: "6", name: "Elegant Classic" }
+  ];
+
+  const keywordSets = [
+    { id: "1", name: "Tech Startup Keywords" },
+    { id: "2", name: "Food & Restaurant" },
+    { id: "3", name: "Health & Wellness" },
+    { id: "4", name: "Creative Design" },
+    { id: "5", name: "E-commerce Sales" },
+    { id: "6", name: "Travel & Adventure" }
+  ];
+
+  const availableAssets = [
+    { id: "1", name: "Company Logo", type: "PNG" },
+    { id: "2", name: "Product Hero Image", type: "JPG" },
+    { id: "3", name: "Team Photo", type: "JPG" },
+    { id: "4", name: "Brand Pattern", type: "PNG" },
+    { id: "5", name: "Office Interior", type: "JPG" },
+    { id: "6", name: "Product Mockup", type: "PNG" },
+    { id: "7", name: "Background Texture", type: "JPG" },
+    { id: "8", name: "Icon Set", type: "SVG" }
+  ];
+
+  const handleAssetToggle = (assetId: string) => {
+    setSelectedAssets(prev => 
+      prev.includes(assetId) 
+        ? prev.filter(id => id !== assetId)
+        : [...prev, assetId]
+    );
+  };
 
   const newImages = [
     { url: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", title: "Business Meeting", size: "1200x800px", prompt: "Professional business meeting with diverse team members discussing strategy in modern conference room" },
@@ -199,6 +240,73 @@ export default function ImagesTextProject() {
                     rows={4}
                     placeholder="Describe your marketing content in detail..."
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Brand Kit
+                  </label>
+                  <div className="relative">
+                    <select 
+                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                      value={selectedBrandKit}
+                      onChange={(e) => setSelectedBrandKit(e.target.value)}
+                    >
+                      <option value="">Select a brand kit</option>
+                      {brandKits.map((kit) => (
+                        <option key={kit.id} value={kit.id}>{kit.name}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Keyword Set
+                  </label>
+                  <div className="relative">
+                    <select 
+                      className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                      value={selectedKeywordSet}
+                      onChange={(e) => setSelectedKeywordSet(e.target.value)}
+                    >
+                      <option value="">Select a keyword set</option>
+                      {keywordSets.map((set) => (
+                        <option key={set.id} value={set.id}>{set.name}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Assets
+                  </label>
+                  <div className="border border-gray-300 rounded-md p-3 max-h-40 overflow-y-auto">
+                    <div className="space-y-2">
+                      {availableAssets.map((asset) => (
+                        <label key={asset.id} className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
+                          <input
+                            type="checkbox"
+                            checked={selectedAssets.includes(asset.id)}
+                            onChange={() => handleAssetToggle(asset.id)}
+                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          />
+                          <span className="text-sm text-gray-700">{asset.name}</span>
+                          <span className="text-xs text-gray-500">({asset.type})</span>
+                        </label>
+                      ))}
+                    </div>
+                    {selectedAssets.length > 0 && (
+                      <div className="mt-2 pt-2 border-t border-gray-200">
+                        <p className="text-xs text-gray-500">
+                          {selectedAssets.length} asset{selectedAssets.length !== 1 ? 's' : ''} selected
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div>
