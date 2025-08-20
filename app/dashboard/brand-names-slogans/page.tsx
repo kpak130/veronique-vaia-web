@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Heart, Share, Upload, Loader2, X, Copy } from "lucide-react";
+import { Search, Settings, Grid3X3, User, HelpCircle, ArrowLeft, Heart, Share, Upload, Loader2, X, Copy, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -392,6 +392,12 @@ export default function BrandNamesSlogansProject() {
                       <Copy className="w-4 h-4 mr-2" />
                       Copy Name & Slogan
                     </Button>
+                    <Link href="/dashboard/logo" className="block">
+                      <Button className="w-full" style={{ backgroundColor: BRAND_COLORS.blue, color: 'white' }}>
+                        <Sparkles className="w-4 h-4 mr-2" />
+                        Create Logo with This
+                      </Button>
+                    </Link>
                     <Button variant="outline" className="w-full">
                       <Copy className="w-4 h-4 mr-2" />
                       Copy Name Only
